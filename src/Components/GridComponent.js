@@ -1,7 +1,7 @@
 import React from "react";
 import {ListGroup, Row, Col} from 'react-bootstrap';
 
-const CourseRowComponent = ({deleteCourse, course, editCourse}) =>
+const GridComponent = ({deleteCourse, course, editCourse}) =>
     <div>
         <ListGroup>
         <ListGroup.Item> 
@@ -10,10 +10,10 @@ const CourseRowComponent = ({deleteCourse, course, editCourse}) =>
             <Col><p>Last Modified</p></Col>
             <Col sm="2"><div>
                 <button onClick={(event) => deleteCourse(course)}>Delete</button>
-                <button onClick={(event) => editCourse()}>Edit</button>
+                <button onClick={() => editCourse()}>Edit</button>
             </div></Col></Row>
         </ListGroup.Item>
         </ListGroup>
     </div>
 
-export default CourseRowComponent
+export default GridComponent

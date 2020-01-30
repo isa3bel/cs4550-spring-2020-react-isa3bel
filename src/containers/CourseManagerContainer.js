@@ -1,13 +1,7 @@
 import React from 'react'
 import CourseHeadingComponent from "../components/CourseHeadingComponent";
 import CourseTableComponent from "../components/CourseTableComponent";
-
-// const courses = [
-//     {_id: '123', title: 'Course A'},
-//     {_id: '234', title: 'Course B'},
-//     {_id: '345', title: 'Course C'},
-//     {_id: '456', title: 'Course D'}
-// ]
+import CourseService from "../services/CourseService";
 
 class CourseManagerContainer extends React.Component {
     state = {
@@ -18,6 +12,14 @@ class CourseManagerContainer extends React.Component {
             {_id: '456', title: 'Course D'}
         ]
     }
+    
+    constructor() {
+      super();
+      this.courseService = new CourseService();
+      // this.state = {
+      //   courses2: this.courseService.findAllCourses()
+      // }
+    }
 
     deleteCourse = (deletedToCourse) => {
         this.setState(prevState => ({
@@ -26,6 +28,10 @@ class CourseManagerContainer extends React.Component {
                 )
             })
         )
+
+        // this.setState({
+        //   courses: this.courseService.deleteCourse(deletedToCourse)
+        // })
     }
 
     addCourse = () => {
@@ -36,17 +42,25 @@ class CourseManagerContainer extends React.Component {
             }]
         })
         )
+        
+        this.setState({
+          courses: this.courseService.addcourse(null)
+        })
+
+    }
+
+    editCourse = () => {
+      alert('test')
     }
 
     render() {
         return (
             <div>
-                <h1>Course Manager</h1>
-                <CourseHeadingComponent/>
-                <button onClick={this.addCourse}>Add</button>
+                <CourseHeadingComponent addCourse={this.addCourse}/>
                 <CourseTableComponent
                     deleteCourse={this.deleteCourse}
-                    courses={this.state.courses}/>
+                    courses={this.state.courses}
+                    editCourse={this.editCourse}/>
             </div>
         );
     }
