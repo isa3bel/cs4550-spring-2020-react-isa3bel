@@ -11,3 +11,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wbdv-stretch {
+  height: 100%;
+}
+
+.wbdv-bold {
+  font-weight: bolder;
+}
+
+.wbdv-module-item {
+  background-color: lightgray;
+}
+
+.wbdv-module-item.wbdv-selected {
+  background-color: darkgray;
+}
+
+#wbdv-widget-box {
+  border: solid black 2px;
+  background-color: white;
+}
+
+.wbdv-topic-pill-list {
+  background-color: darkgray;
+}
+
+.wbdv-rightside {
+  background-color: darkgray;
+}
+
+.wbdv-row {
+  background-color: #696969;
+}
+
+.wbdv-arrow {
+  margin-left:10px;
+}
+
+.wbdv-exitWidget {
+  margin-right: 10px;
+}
+
+.nav li a {
+  color: white;
+  font-weight: bold;
+}
+
+a.active.nav-link {
+  background-color: #C0C0C0 !important;
+}
