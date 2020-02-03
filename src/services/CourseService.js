@@ -1,15 +1,7 @@
-function CourseListServiceClient() {
-   this.findAllCourses = findAllCourses;
-   this.createCourse = createCourse;
-   this.findCourseById = findCourseById;
-   this.deleteCourse = deleteCourse;
-   this.updateCourse = updateCourse;
-   this.url =
-   'https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses';
-   var self = this;
-  
-   function createCourse(course) {
-        return fetch(self.url, {
+class CourseListServiceClient {
+   url = 'https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses';
+   createCourse(course) {
+        return fetch(this.url, {
             method: 'POST',
             body: JSON.stringify(course),
             headers: {
@@ -18,21 +10,22 @@ function CourseListServiceClient() {
         }).then(response => response.json())
     }
    
-  function findAllCourses() {
-  return fetch(self.url).then(function(response) {
-      return response.json()
-  });
+  findAllCourses() {
+    return fetch(this.url)
+        .then(function(response) {
+        return response.json()
+    });
   }
 
-  function findCourseById(courseId) {
-      return fetch(`${self.url}/${courseId}`)
+  findCourseById(courseId) {
+      return fetch(`${this.url}/${courseId}`)
           .then((response) => {
               return response.json()
           })
   }
   
-  function updateCourse(courseId, course) {
-      return fetch(`${self.url}/${courseId}`, {
+  updateCourse(courseId, course) {
+      return fetch(`${this.url}/${courseId}`, {
           method: 'PUT',
           body: JSON.stringify(course),
           headers: {
@@ -41,9 +34,11 @@ function CourseListServiceClient() {
       }).then(response => response.json())
   }
    
-   function deleteCourse(courseId) {
-    return fetch(`${self.url}/${courseId}`, {
+   deleteCourse(courseId) {
+    return fetch(`${this.url}/${courseId}`, {
         method: 'DELETE',
-    });
+    }).then(response => response.json());
    }
 }
+
+export default CourseListServiceClient;
