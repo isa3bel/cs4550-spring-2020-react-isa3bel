@@ -44,7 +44,7 @@ class CourseHeadingComponent extends React.Component {
                     <Col sm="2">
                         <div className="justify-content-end">
                             <button onClick={this.props.filterSortButton}><i className="fa fa-th-list"/></button>
-                            <button><i className="fa fa-sort-alpha-asc"/></button>
+                            <button ><i className="fa fa-sort-alpha-asc"/></button>
                         </div>
                     </Col>
                 </Row>

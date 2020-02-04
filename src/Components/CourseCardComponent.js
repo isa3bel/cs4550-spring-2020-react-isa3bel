@@ -41,8 +41,8 @@ class CourseCard extends React.Component {
                 courseName: e.target.value
             })} value={this.state.newCourseTitle}></input>
           }
-          <p>Last modified yesterday</p>
-          <p>Owned by Isabel</p>
+          <p id="card-lastmodified">Last modified yesterday</p>
+          <p id="card-ownedby">Owned by Isabel</p>
           <div>
             {
               !this.state.editing &&

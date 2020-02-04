@@ -61,3 +61,14 @@ code {
 a.active.nav-link {
   background-color: #C0C0C0 !important;
 }
+ 
+
+#card-ownedby{
+  color: gray;
+  font-size: 12px;
+}
+
+#card-lastmodified {
+  color: gray;
+  font-size: 12px;
+}
