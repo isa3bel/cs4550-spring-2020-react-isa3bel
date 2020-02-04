@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Col from 'react'
 import Doc from "../document2.jpg"
+import 'font-awesome/css/font-awesome.min.css';
 
 class CourseCard extends React.Component {
 
@@ -45,14 +46,14 @@ class CourseCard extends React.Component {
           <div>
             {
               !this.state.editing &&
-              <button onClick={(event) => this.isEditing()}>Edit</button>
+              <button onClick={(event) => this.isEditing()}><i className="fa fa-pencil"/></button>
             }
             {
-              !this.state.editing && <button onClick={(event) => this.props.deleteCourse(this.props.course)}>Delete</button>
+              !this.state.editing && <button onClick={(event) => this.props.deleteCourse(this.props.course)}><i className="fa fa-trash"/></button>
             }
             {
               this.state.editing &&
-              <button onClick={(event) => this.clickedSave(this.state.courseName)} >Save</button>
+              <button onClick={(event) => this.clickedSave(this.state.courseName)} ><i className="fa fa-check"/></button>
             }
           </div>
         </div>

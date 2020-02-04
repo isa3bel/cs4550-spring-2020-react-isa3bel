@@ -1,6 +1,5 @@
 import React from "react";
 import {ListGroup, Row, Col} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css';
 class CourseRowComponent extends React.Component {
 
@@ -52,15 +51,17 @@ class CourseRowComponent extends React.Component {
                 <Col className="d-none d-md-block"><p>Yesterday</p></Col>
                 <Col sm="2"><div>
                     {
-                       !this.state.editing && <button onClick={(event) => this.props.deleteCourse(this.props.course)}>Delete</button>
+                       !this.state.editing && <button onClick={(event) => this.props.deleteCourse(this.props.course)}><i className="fa fa-trash" /></button>
                     }
                     {
                         !this.state.editing &&
-                        <button onClick={(event) => this.isEditing()}><FontAwesomeIcon icon="coffee"/></button>
+                        <button onClick={(event) => this.isEditing()}>
+                        <i className="fa fa-pencil" />
+                        </button>
                     }
                     {
                         this.state.editing &&
-                        <button onClick={(event) => this.clickedSave(this.state.courseName)} >Save</button>
+                        <button onClick={(event) => this.clickedSave(this.state.courseName)}><i className="fa fa-check"/></button>
                     }
                     
                 </div></Col></Row>

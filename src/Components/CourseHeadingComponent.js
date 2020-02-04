@@ -6,6 +6,7 @@ import {FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Form, Col, Row} from 'react-bootstrap';
 import $ from 'jquery';
+import 'font-awesome/css/font-awesome.min.css';
 
 class CourseHeadingComponent extends React.Component {
 
@@ -42,8 +43,8 @@ class CourseHeadingComponent extends React.Component {
                     <Col className="d-none d-md-block"><p>Last Modified</p></Col>
                     <Col sm="2">
                         <div className="justify-content-end">
-                            <button onClick={this.props.filterSortButton}>Filter</button>
-                            <button>Sort</button>
+                            <button onClick={this.props.filterSortButton}><i className="fa fa-th-list"/></button>
+                            <button><i className="fa fa-sort-alpha-asc"/></button>
                         </div>
                     </Col>
                 </Row>
