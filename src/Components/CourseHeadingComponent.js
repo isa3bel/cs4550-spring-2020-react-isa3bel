@@ -1,14 +1,11 @@
-import React from 'react'
+import React, {Component } from 'react'
 import {Navbar} from 'react-bootstrap';
-import {Nav} from 'react-bootstrap';
-import {NavDropdown} from 'react-bootstrap';
 import {FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
-import {Form, Col, Row} from 'react-bootstrap';
-import $ from 'jquery';
+import { Col, Row} from 'react-bootstrap';
 import 'font-awesome/css/font-awesome.min.css';
 
-class CourseHeadingComponent extends React.Component {
+class CourseHeadingComponent extends Component {
 
     state ={
         newCourseTitle: '',
