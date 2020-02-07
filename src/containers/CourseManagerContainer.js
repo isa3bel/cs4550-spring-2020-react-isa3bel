@@ -105,30 +105,42 @@ class CourseManagerContainer extends React.Component {
 
       <div>
         <Router>
-          <Route path="/course-editor/:courseId"  
-                render={(props) => <CourseEditor {...props}/>}
-                exact={true}
-                >
-            </Route> 
           <Route
-          exact={true}
+            path="/course-editor/:courseId"
+            render={props => (
+              <CourseEditor {...props} courseId={props.match.params.courseId} />
+            )}
+            exact={true}
+          ></Route>
+          <Route
+            path="/course-editor/:courseId/module/:moduleId"
+            exact={true}
+            render={props => (
+              <CourseEditor {...props} courseId={props.match.params.courseId} />
+            )}
+          />
+          <Route
+            exact={true}
             path="/"
             render={() => (
-                <div>
-                <CourseHeadingComponent addCourse={this.addCourse} filtered={this.state.button} filterSortButton={this.filterSortButton}/>
-                    <CourseTableComponent
-                        deleteCourse={this.deleteCourse}
-                        courses={this.state.courses}
-                        editCourse={this.editCourse}
-                        button={this.state.button}
-                        isEditing={this.state.isEditing}
-                        showCourseEditor={this.state.showCourseEditor }
-                        updateCourse={this.updateCourse}
-                    /></div>
+              <div>
+                <CourseHeadingComponent
+                  addCourse={this.addCourse}
+                  filtered={this.state.button}
+                  filterSortButton={this.filterSortButton}
+                />
+                <CourseTableComponent
+                  deleteCourse={this.deleteCourse}
+                  courses={this.state.courses}
+                  editCourse={this.editCourse}
+                  button={this.state.button}
+                  isEditing={this.state.isEditing}
+                  showCourseEditor={this.state.showCourseEditor}
+                  updateCourse={this.updateCourse}
+                />
+              </div>
             )}
-          >
-          </Route>
-         
+          ></Route>
         </Router>
       </div>
     );

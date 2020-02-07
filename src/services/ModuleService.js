@@ -1,7 +1,7 @@
-
-export const findModuleForCourse = (courseId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}/modules`)
-        .then(response => response.json())
+export const findModuleForCourse = (courseId) => {
+console.log(courseId)
+    return fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}/modules`)
+        .then(response => response.json())}
 
 export const createModule = (courseId, module) =>
     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}/modules`, {
@@ -25,3 +25,8 @@ export const updateModule = (moduleId, module) =>
           "content-type": "application/json"
       }
     }).then(response => response.json())
+
+    export default {
+      deleteModule,
+      findModuleForCourse
+  }

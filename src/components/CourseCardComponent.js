@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Col from 'react'
 import Doc from "../document2.jpg"
 import 'font-awesome/css/font-awesome.min.css';
+import { Link } from "react-router-dom";
 
 class CourseCard extends React.Component {
 
@@ -33,7 +34,7 @@ class CourseCard extends React.Component {
                    src={Doc}/>
         <div className="card-body">
           {
-            !this.state.editing && <h5 className="card-title">{this.props.course.title}</h5>
+            !this.state.editing && <Link to={`/course-editor/${this.props.course._id}`}><h5 className="card-title">{this.props.course.title}</h5></Link>
           }
           {
             this.state.editing &&
