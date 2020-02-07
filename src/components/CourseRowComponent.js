@@ -39,7 +39,7 @@ class CourseRowComponent extends React.Component {
             <ListGroup.Item onClick={this.selected} style={ { 'backgroundColor': this.state.selected ? 'lightblue' : 'white' } }> 
                 <Row>
                 {
-                    !this.state.editing && <Col  onClick={this.showEditor}>{this.props.course.title}</Col>
+                    !this.state.editing && <Col><a href="/course-editor" onClick={this.showEditor}>{this.props.course.title}</a></Col>
                 }
                 {
                     this.state.editing &&

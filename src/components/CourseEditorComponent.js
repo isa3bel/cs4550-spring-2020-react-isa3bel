@@ -6,7 +6,6 @@ import LessonTab from './LessonsTabComponent';
 
 class CourseEditor extends React.Component {
 
-
   render() {
     return(
       <div>
@@ -22,8 +21,8 @@ class CourseEditor extends React.Component {
       <body class="wbdv-stretch">
           <div class="container-fluid main wbdv-row wbdv-stretch">
               <div class="row wbdv-row">
-                  <a href="../home-page/home-page.template.client.html"
-                      class="btn mb-3 wbdv-row wbdv-button wbdv-delete">x</a>
+                  <button
+                      class="btn mb-3 wbdv-row wbdv-button wbdv-delete" onClick={() => this.props.history.push("/")}>x</button>
                   <div class="col">
                       <h2 class="wbdv-course-title">CS4550-WebDev</h2>
                   </div>
