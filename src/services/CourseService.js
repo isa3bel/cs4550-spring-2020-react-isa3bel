@@ -2,7 +2,7 @@ class CourseListServiceClient {
    url = 'https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses';
    createCourse(course) {
         return fetch(this.url, {
-            method: 'POST',
+            method: 'POST', 
             body: JSON.stringify(course),
             headers: {
                 "content-type": "application/json"

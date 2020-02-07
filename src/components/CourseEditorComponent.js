@@ -25,6 +25,7 @@ class CourseEditor extends React.Component {
                       class="btn mb-3 wbdv-row wbdv-button wbdv-delete" onClick={() => this.props.history.push("/")}>x</button>
                   <div class="col">
                       <h2 class="wbdv-course-title">CS4550-WebDev</h2>
+                      <h2 class="wbdv-course-title">{this.props.match.params.courseId}</h2>
                   </div>
                   <div class="col-sm-8">
                       <LessonTab/>

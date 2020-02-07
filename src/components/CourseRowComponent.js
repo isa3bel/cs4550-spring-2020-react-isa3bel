@@ -1,6 +1,7 @@
 import React from "react";
 import {ListGroup, Row, Col} from 'react-bootstrap';
 import 'font-awesome/css/font-awesome.min.css';
+import { Link } from "react-router-dom";
 class CourseRowComponent extends React.Component {
 
     state = {
@@ -39,7 +40,7 @@ class CourseRowComponent extends React.Component {
             <ListGroup.Item onClick={this.selected} style={ { 'backgroundColor': this.state.selected ? 'lightblue' : 'white' } }> 
                 <Row>
                 {
-                    !this.state.editing && <Col><a href="/course-editor" onClick={this.showEditor}>{this.props.course.title}</a></Col>
+                    !this.state.editing && <Col><Link to={`/course-editor/${this.props.course.title}`}>{this.props.course.title}</Link></Col>
                 }
                 {
                     this.state.editing &&
