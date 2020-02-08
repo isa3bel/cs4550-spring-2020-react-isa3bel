@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import moduleService from "../services/ModuleService";
 
 class ModuleList extends React.Component {
+
+  state = {
+    moduleName: ""
+  }
   componentDidMount() {
     this.props.findModuleForCourse(this.props.courseId);
   }
@@ -12,14 +16,32 @@ class ModuleList extends React.Component {
     this.setState(newState);
   };
 
+  addModule() {
+    this.props.createModule(this.props.courseId, this.state.moduleName);
+
+  }
+
   render() {
     return (
       <div>
         <ul class="list-group wbdv-module-list">
           {this.props.modules &&
             this.props.modules.map(module => (
-              <ModuleListItem title={module.title} />
+              <ModuleListItem
+                title={module.title}
+                moduleId={module._id}
+                deleteModule={this.props.deleteModule}
+                updateModule={this.props.updateModule}
+              />
             ))}
+            <li className="list-group-item wbdv-module-item wbdv-selected wbdv-module-item-title d-flex justify-content-between">
+            <input onChange={e =>
+              this.updateNameForm({
+                moduleName: e.target.value
+              })
+            }></input>
+            <button onClick={() => this.addModule()}>add</button>
+            </li>
         </ul>
       </div>
     );
@@ -41,16 +63,27 @@ const dispatchToPropertyMapper = dispatch => {
           modules: actualModules
         });
       }),
-    findAllModules: () =>
-      // TODO: move all server access to ModuleService.js
-      fetch("https://wbdv-generic-server.herokuapp.com/api/jannunzi/modules")
-        .then(response => response.json())
-        .then(actualModules =>
-          dispatch({
-            type: "FIND_ALL_MODULES",
-            modules: actualModules
-          })
-        )
+    deleteModule: moduleId => {
+      return moduleService
+        .deleteModule(moduleId)
+        .then(status =>
+          dispatch({ type: "DELETE_MODULE", moduleId: moduleId })
+        );
+    },
+    updateModule: (moduleId, module) => {
+      return moduleService
+        .updateModule(moduleId, module)
+        .then(status =>
+          dispatch({ type: "UPDATE_MODULE", moduleId: moduleId })
+        );
+    },
+    createModule: (courseId, module) => {
+      return moduleService
+      .createModule(courseId, module)
+      .then(status => 
+        dispatch({ type: "CREATE_MODULE", newModule: module }));
+    },
+
   };
 };
 
