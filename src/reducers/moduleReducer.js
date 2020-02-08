@@ -15,7 +15,17 @@ const moduleReducer = (state = initialState, action) => {
             return {
                 modules: action.modules
             }
-            
+        case "CREATE_MODULE":
+            return {
+              modules: [
+                  ...state.modules,
+                  action.newModule
+              ]
+          }
+        case "DELETE_MODULE":
+          return {
+            modules: state.modules.filter(module => module._id !== action.moduleId)
+        }
         default:
             return state
     }
