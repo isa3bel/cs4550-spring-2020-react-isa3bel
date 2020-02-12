@@ -52,6 +52,7 @@ class CourseManagerContainer extends React.Component {
           courses: [...this.state.courses, actualCourse]
         })
       );
+      
   };
 
   editCourse = () => {
@@ -81,28 +82,7 @@ class CourseManagerContainer extends React.Component {
   };
 
   render() {
-    // if(this.state.showCourseEditor) {
-    //     return(<CourseEditor/>);
-    // }  else{
     return (
-      // <Router>
-
-      //     <Link to={"/page1"}>
-      //         Page 1
-      //     </Link>
-      //     <Link to={"/page2"} >
-      //         Page 2
-      //     </Link>
-      //     <Route path="/page1/:message"
-      //     component={Page1}
-      //     exact={true}
-      //     />
-
-      //     <Route path="/page2"
-      //     component={Page2}/>
-
-      // </Router>
-
       <div>
         <Router>
           <Route
@@ -116,7 +96,36 @@ class CourseManagerContainer extends React.Component {
             path="/course-editor/:courseId/module/:moduleId"
             exact={true}
             render={props => (
-              <CourseEditor {...props} courseId={props.match.params.courseId} />
+              <CourseEditor
+                {...props}
+                courseId={props.match.params.courseId}
+                moduleId={props.match.params.moduleId}
+              />
+            )}
+          />
+          <Route
+            path="/course-editor/:courseId/module/:moduleId/lessons/:lessonId"
+            exact={true}
+            render={props => (
+              <CourseEditor
+                {...props}
+                courseId={props.match.params.courseId}
+                lessonId={props.match.params.lessonId}
+                moduleId={props.match.params.moduleId}
+              />
+            )}
+          />
+          <Route
+            path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId/topics/:topicId"
+            exact={true}
+            render={props => (
+              <CourseEditor
+                {...props}
+                courseId={props.match.params.courseId}
+                lessonId={props.match.params.lessonId}
+                moduleId={props.match.params.moduleId}
+                topicId={props.match.params.topicId}
+              />
             )}
           />
           <Route

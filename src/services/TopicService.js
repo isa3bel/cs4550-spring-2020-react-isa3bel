@@ -1,7 +1,8 @@
-export const createTopic = (lessonId, topic) =>
+export const createTopic = (lessonId, topic) => 
+
     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/lessons/${lessonId}/topics`, {
         method: "POST",
-        body: JSON.stringify(topic),
+        body: JSON.stringify({title: topic}),
         headers: {
             'content-type': 'application/json'
         }
@@ -30,3 +31,12 @@ export const deleteTopic = (topicId) =>
     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/topics/${topicId}`, {
         method: 'DELETE',
     }).then(response => response.json());
+
+
+export default {
+  deleteTopic,
+  findTopicsForLesson,
+  updateTopic,
+  createTopic
+}
+  

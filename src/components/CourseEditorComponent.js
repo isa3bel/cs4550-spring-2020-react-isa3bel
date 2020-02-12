@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import ModuleList from "./ModuleListComponent";
-import TopicPillsComponent from "./TopicListComponent";
+import TopicPills from "./TopicListComponent";
 import WidgetList from "./WidgetListComponent";
 import LessonTab from "./LessonsTabComponent";
 import { combineReducers, createStore } from "redux";
 import { Provider, connect } from "react-redux";
 import moduleReducer from "../reducers/moduleReducer";
-import moduleService, { findModuleForCourse } from "../services/ModuleService";
+import lessonReducer from "../reducers/lessonReducer";
+import topicReducer from "../reducers/topicReducer";
+import 'font-awesome/css/font-awesome.min.css';
 
 const rootReducer = combineReducers({
-  modules: moduleReducer
+  modules: moduleReducer,
+  lessons: lessonReducer,
+  topics: topicReducer
 });
 
 // const moduleFsm = (state = this.initialState, action) => {
@@ -19,6 +23,10 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 class CourseEditor extends React.Component {
+  state = {
+    moduleId: ""
+  };
+
   render() {
     return (
       <Provider store={store}>
@@ -45,12 +53,10 @@ class CourseEditor extends React.Component {
               </button>
               <div class="col">
                 <h2 class="wbdv-course-title">CS4550-WebDev</h2>
-                <h2 class="wbdv-course-title">
-                  {this.props.courseId}
-                </h2>
+                <h2 class="wbdv-course-title">{this.props.courseId}</h2>
               </div>
               <div class="col-sm-8">
-                <LessonTab />
+                <LessonTab moduleId={this.props.moduleId} courseId={this.props.courseId}/>
               </div>
             </div>
             <div>
@@ -59,8 +65,7 @@ class CourseEditor extends React.Component {
                   <ModuleList courseId={this.props.courseId} />
                 </div>
                 <div class="col-sm-8 wbdv-rightside">
-                  <TopicPillsComponent />
-
+                  <TopicPills lessonId={this.props.lessonId} moduleId={this.props.moduleId} courseId={this.props.courseId}/>
                   <div class="container-fluid">
                     <WidgetList />
                   </div>

@@ -6,7 +6,7 @@ export const findLessonsForModule = (moduleId) =>
 export const createLesson = (moduleId, lesson) =>
     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/module/${moduleId}/lessons`, {
         method: "POST",
-        body: JSON.stringify(lesson),
+        body: JSON.stringify({title: lesson}),
         headers: {
             'content-type': 'application/json'
         }
@@ -25,8 +25,17 @@ export const deleteLesson = (lessonId) =>
 export const updateLesson = (lessonId, lesson) =>
   fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/lessons/${lessonId}`, {
       method: 'PUT',
-      body: JSON.stringify(lesson),
+      body: JSON.stringify({title: lesson}),
       headers: {
           "content-type": "application/json"
       }
   }).then(response => response.json())
+
+
+  export default {
+    deleteLesson,
+    findLessonsForModule,
+    updateLesson,
+    findLesson,
+    createLesson
+}

@@ -10,6 +10,13 @@ class ModuleList extends React.Component {
   }
   componentDidMount() {
     this.props.findModuleForCourse(this.props.courseId);
+    
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.moduleId != this.props.moduleId) {
+      this.props.findModuleForCourse(this.props.moduleId);
+    }
   }
 
   updateNameForm = newState => {
@@ -26,21 +33,23 @@ class ModuleList extends React.Component {
       <div>
         <ul class="list-group wbdv-module-list">
           {this.props.modules &&
-            this.props.modules.map(module => (
-              <ModuleListItem
+            this.props.modules.map(module => {
+              console.log(JSON.stringify(module) + "module")
+              return <ModuleListItem
                 title={module.title}
                 moduleId={module._id}
                 deleteModule={this.props.deleteModule}
                 updateModule={this.props.updateModule}
+                courseId={this.props.courseId}
               />
-            ))}
+          })}
             <li className="list-group-item wbdv-module-item wbdv-selected wbdv-module-item-title d-flex justify-content-between">
             <input onChange={e =>
               this.updateNameForm({
                 moduleName: e.target.value
               })
             }></input>
-            <button onClick={() => this.addModule()}>add</button>
+            <button onClick={() => this.addModule()}>+</button>
             </li>
         </ul>
       </div>

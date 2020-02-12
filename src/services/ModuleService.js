@@ -32,6 +32,5 @@ export default {
     deleteModule,
     findModuleForCourse,
     updateModule,
-    deleteModule,
     createModule
 }
