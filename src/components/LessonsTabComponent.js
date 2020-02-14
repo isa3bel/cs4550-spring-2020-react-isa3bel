@@ -30,8 +30,8 @@ class LessonTab extends React.Component {
         <ul class="nav nav-tabs nav-fill wbdv-text-color">
           {this.props.lessons &&
             this.props.lessons.map(lesson => {
-              console.log("lesson" + lesson.title);
-
+              console.log("lesson object " + JSON.stringify(lesson));
+              console.log("lesson object title" + lesson.title);
               return (
                 <LessonsComponent
                   title={lesson.title}
@@ -84,7 +84,7 @@ const dispatcherToPropertyMapper = dispatcher => ({
     return lessonService.
         updateLesson(lessonId, lesson)
         .then(status =>
-          dispatcher({ type: "UPDATE_LESSON", lessonId: lessonId })
+          dispatcher({ type: "UPDATE_LESSON", lesson: lesson })
         );
     },
   addLesson: (moduleId, lesson) =>

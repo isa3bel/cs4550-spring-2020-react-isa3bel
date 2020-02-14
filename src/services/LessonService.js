@@ -25,7 +25,7 @@ export const deleteLesson = (lessonId) =>
 export const updateLesson = (lessonId, lesson) =>
   fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/lessons/${lessonId}`, {
       method: 'PUT',
-      body: JSON.stringify({title: lesson}),
+      body: JSON.stringify(lesson),
       headers: {
           "content-type": "application/json"
       }

@@ -21,10 +21,15 @@ class LessonsComponent extends React.Component {
     this.setState({ editing: !this.state.editing });
   }
 
+  clickedSave() {
+    this.setState({ editing: !this.state.editing });
+  }
   render() {
     return (
+      
       <li class="nav-item">
         {
+         
           !this.state.editing && (<Link
             className="nav-link wbdv-page-tab"
             to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lessons/${this.props.lessonId}`}
@@ -52,8 +57,10 @@ class LessonsComponent extends React.Component {
         )}
         {this.state.editing && (
           <button
-            onClick={() =>
-              this.props.updateLesson(this.props.lessonId, this.props.title)
+            onClick={() => {
+              this.props.updateLesson(this.props.lessonId, {title:this.state.lessonName, _id: this.props.lessonId})
+              this.clickedSave()
+            }
             }
           >
           <i className="fa fa-check" />

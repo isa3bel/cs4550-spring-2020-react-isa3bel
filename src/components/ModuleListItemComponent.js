@@ -20,6 +20,11 @@ class ModuleListItem extends React.Component {
     this.setState({ editing: !this.state.editing });
   }
 
+  clickedSave() {
+    console.log('clicked save');
+    this.setState({ editing: !this.state.editing });
+  }
+
   render() {
     return (
       <div>
@@ -53,11 +58,13 @@ class ModuleListItem extends React.Component {
           )}
           {this.state.editing && (
             <button
-              onClick={event =>
+              onClick={event => {
                 this.props.updateModule(
                   this.props.moduleId,
-                  this.props.moduleName
+                  {title:this.state.moduleName, _id: this.props.moduleId}
                 )
+                this.clickedSave();
+              }
               }
             >
             <i className="fa fa-check" />

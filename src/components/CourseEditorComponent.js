@@ -9,6 +9,7 @@ import moduleReducer from "../reducers/moduleReducer";
 import lessonReducer from "../reducers/lessonReducer";
 import topicReducer from "../reducers/topicReducer";
 import 'font-awesome/css/font-awesome.min.css';
+import {findCourseById} from "../services/CourseService";
 
 const rootReducer = combineReducers({
   modules: moduleReducer,
@@ -24,8 +25,13 @@ const store = createStore(rootReducer);
 
 class CourseEditor extends React.Component {
   state = {
-    moduleId: ""
+    moduleId: "",
+    course: {},
   };
+
+  componentDidMount() {
+    findCourseById(this.props.courseId).then(course => this.setState({course: course}));
+  }
 
   render() {
     return (
@@ -53,7 +59,7 @@ class CourseEditor extends React.Component {
               </button>
               <div class="col">
                 <h2 class="wbdv-course-title">CS4550-WebDev</h2>
-                <h2 class="wbdv-course-title">{this.props.courseId}</h2>
+                <h2 class="wbdv-course-title">{this.state.course.title}</h2>
               </div>
               <div class="col-sm-8">
                 <LessonTab moduleId={this.props.moduleId} courseId={this.props.courseId}/>

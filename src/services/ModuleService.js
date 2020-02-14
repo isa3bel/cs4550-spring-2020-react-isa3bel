@@ -6,7 +6,7 @@ console.log(courseId)
 export const createModule = (courseId, module) =>
     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}/modules`, {
         method: "POST",
-        body: JSON.stringify({title: module}),
+        body: JSON.stringify(module),
         headers: {
             'content-type': 'application/json'
         }

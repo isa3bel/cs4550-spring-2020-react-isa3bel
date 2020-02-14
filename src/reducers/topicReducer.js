@@ -21,7 +21,7 @@ const topicReducer = (state = initialState, action) => {
       case "UPDATE_TOPIC":
         return {
           topics: state.topics.map(topic =>
-            topic._id === action.topicId ? action.topic : topic
+            topic._id === action.topic._id ? action.topic : topic
           )
         };
       case "DELETE_TOPIC":

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import 'font-awesome/css/font-awesome.min.css';
+import "font-awesome/css/font-awesome.min.css";
 
 class TopicPillsComponent extends React.Component {
   state = {
@@ -17,7 +17,6 @@ class TopicPillsComponent extends React.Component {
   }
 
   clickedSave = (topicId, topicName) => {
-    
     this.setState({ editing: !this.state.editing });
   };
 
@@ -45,11 +44,27 @@ class TopicPillsComponent extends React.Component {
             ></input>
           )}
           {!this.state.editing && (
-            <button onClick={() => this.isEditing()}><i className="fa fa-pencil" /></button>
+            <button onClick={() => this.isEditing()}>
+              <i className="fa fa-pencil" />
+            </button>
           )}
-          {!this.state.editing && <button onClick={() => this.props.deleteTopic(this.props.topicId)}><i className="fa fa-trash" /></button>}
+          {!this.state.editing && (
+            <button onClick={() => this.props.deleteTopic(this.props.topicId)}>
+              <i className="fa fa-trash" />
+            </button>
+          )}
           {this.state.editing && (
-            <button onClick={() => this.props.updateTopic(this.props.topicId, this.props.topicName)}><i className="fa fa-check" /></button>
+            <button
+              onClick={() => {
+                this.props.updateTopic(this.props.topicId, {
+                  title: this.state.topicName,
+                  _id: this.props.topicId
+                });
+                this.clickedSave();
+              }}
+            >
+              <i className="fa fa-check" />
+            </button>
           )}
         </li>
       </div>

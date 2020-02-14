@@ -19,7 +19,7 @@ class TopicPills extends React.Component {
   }
 
   addTopic() {
-    this.props.createTopic(this.props.lessonId, this.state.topicName);
+    this.props.createTopic(this.props.lessonId, {title:this.state.topicName});
   }
 
   updateNameForm = newState => {
@@ -34,6 +34,7 @@ class TopicPills extends React.Component {
             this.props.topics.map(topic => (
               <TopicPillsComponent
                 title={topic.title}
+                key={topic.title}
                 topicId={topic._id}
                 deleteTopic={this.props.deleteTopic}
                 updateTopic={this.props.updateTopic}
@@ -86,7 +87,7 @@ const dispatchToPropertyMapper = dispatch => {
     updateTopic: (topicId, topic) => {
       return topicService
         .updateTopic(topicId, topic)
-        .then(status => dispatch({ type: "UPDATE_TOPIC", topicId: topicId }));
+        .then(status => dispatch({ type: "UPDATE_TOPIC", topic: topic }));
     },
     createTopic: (lessonId, topic) => {
       return topicService

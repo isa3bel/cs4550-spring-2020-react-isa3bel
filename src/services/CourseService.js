@@ -42,3 +42,10 @@ class CourseListServiceClient {
 }
 
 export default CourseListServiceClient;
+
+
+export const findCourseById = (courseId) => 
+     fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}`)
+        .then((response) => {
+            return response.json()
+        })

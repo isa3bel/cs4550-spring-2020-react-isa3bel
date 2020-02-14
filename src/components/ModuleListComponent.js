@@ -15,7 +15,7 @@ class ModuleList extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.moduleId != this.props.moduleId) {
-      this.props.findModuleForCourse(this.props.moduleId);
+      this.props.findModuleForCourse(this.props.courseId);
     }
   }
 
@@ -24,7 +24,7 @@ class ModuleList extends React.Component {
   };
 
   addModule() {
-    this.props.createModule(this.props.courseId, this.state.moduleName);
+    this.props.createModule(this.props.courseId, {title: this.state.moduleName});
 
   }
 
@@ -34,7 +34,6 @@ class ModuleList extends React.Component {
         <ul class="list-group wbdv-module-list">
           {this.props.modules &&
             this.props.modules.map(module => {
-              console.log(JSON.stringify(module) + "module")
               return <ModuleListItem
                 title={module.title}
                 moduleId={module._id}
@@ -83,7 +82,7 @@ const dispatchToPropertyMapper = dispatch => {
       return moduleService
         .updateModule(moduleId, module)
         .then(status =>
-          dispatch({ type: "UPDATE_MODULE", moduleId: moduleId })
+          dispatch({ type: "UPDATE_MODULE", newModule: module })
         );
     },
     createModule: (courseId, module) => {
