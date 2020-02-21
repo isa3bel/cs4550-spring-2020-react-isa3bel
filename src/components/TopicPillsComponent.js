@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "font-awesome/css/font-awesome.min.css";
+import { Link } from "react-router-dom";
 
 class TopicPillsComponent extends React.Component {
   state = {
@@ -29,9 +30,11 @@ class TopicPillsComponent extends React.Component {
       <div>
         <li class="nav-item wbdv-topic-pill">
           {!this.state.editing && (
-            <a class="nav-link" href="#">
-              {this.props.title}
-            </a>
+            <Link
+              to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topics/${this.props.topicId}`}
+            >
+              test
+            </Link>
           )}
           {this.state.editing && (
             <input

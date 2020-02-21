@@ -38,6 +38,9 @@ class TopicPills extends React.Component {
                 topicId={topic._id}
                 deleteTopic={this.props.deleteTopic}
                 updateTopic={this.props.updateTopic}
+                moduleId={this.props.moduleId}
+                courseId={this.props.courseId}
+                lessonId={this.props.lessonId}
               />
             ))}
           {window.location.href.indexOf("lessons") > -1 && (
