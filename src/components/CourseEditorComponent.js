@@ -10,11 +10,13 @@ import lessonReducer from "../reducers/lessonReducer";
 import topicReducer from "../reducers/topicReducer";
 import 'font-awesome/css/font-awesome.min.css';
 import {findCourseById} from "../services/CourseService";
+import widgetRuducer from "../reducers/WidgetReducer";
 
 const rootReducer = combineReducers({
   modules: moduleReducer,
   lessons: lessonReducer,
-  topics: topicReducer
+  topics: topicReducer,
+  widgets: widgetRuducer,
 });
 
 // const moduleFsm = (state = this.initialState, action) => {
@@ -73,7 +75,7 @@ class CourseEditor extends React.Component {
                 <div class="col-sm-8 wbdv-rightside">
                   <TopicPills lessonId={this.props.lessonId} moduleId={this.props.moduleId} courseId={this.props.courseId}/>
                   <div class="container-fluid">
-                    <WidgetList />
+                    <WidgetList topicId={this.props.topicId}/>
                   </div>
                 </div>
               </div>
