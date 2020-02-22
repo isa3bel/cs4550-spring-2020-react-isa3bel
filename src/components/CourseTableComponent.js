@@ -27,7 +27,6 @@ class CourseTableComponent extends React.Component {
         </div>
       );
     } else {
-      console.log(this.props.courses);
       return (
         <div>
           <div className="row justify-content-around">

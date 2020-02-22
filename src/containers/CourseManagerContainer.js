@@ -32,7 +32,6 @@ class CourseManagerContainer extends React.Component {
   };
 
   deleteCourse = deletedToCourse => {
-    console.log(deletedToCourse);
     this.courseService.deleteCourse(deletedToCourse._id).then(() =>
       this.setState({
         courses: this.state.courses.filter(
@@ -74,7 +73,6 @@ class CourseManagerContainer extends React.Component {
         return this.courseService.findAllCourses();
       })
       .then(courses => {
-        console.log("updated courses: " + courses);
         this.setState({
           courses: courses
         });

@@ -4,11 +4,13 @@ class ParagraphWidget extends React.Component {
   state = {
     editing: false,
     selected: false,
-    paragraphText: "",
-    widgetName: "",
+    paragraphText: this.props.title,
+    widgetName: this.props.name,
     preview: true,
-    type: ""
+    type: "PARAGRAPH"
   };
+
+  
 
   isEditing() {
     this.setState({ editing: !this.state.editing });
@@ -23,6 +25,7 @@ class ParagraphWidget extends React.Component {
   }
 
   clickedSave() {
+    console.log('clicked paragrph save');
     this.setState({ editing: !this.state.editing });
     this.props.updateWidget(this.props.topicId, {
       title: this.state.paragraphText,
@@ -30,7 +33,7 @@ class ParagraphWidget extends React.Component {
       topicId: this.props.topicId,
       type: this.state.type,
       size: 0,
-      name: this.state.widgetName,
+      name: this.state.widgetName
     });
   }
 
@@ -38,6 +41,7 @@ class ParagraphWidget extends React.Component {
     return (
       <div class="row" id="wbdv-widget-box">
         {this.state.editing && <h3 class="col">Paragraph Widget</h3>}
+        {!this.state.editing && <p>{this.props.title}</p>}
 
         {this.state.editing && (
           <button type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">
@@ -53,20 +57,21 @@ class ParagraphWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group col-3">
-            <select class="custom-select" onChange={e => {
-              const newSize = parseInt(e.target.value);
-              if(newSize === 1) {
-                this.setState({ type: "PARAGRAPH" });
-              } else if(newSize === 2) {
-                this.setState({ type: "HEADING" });
-              } else {
-                this.setState({ type: "HEADING" });
-              }
-            }}> 
+            <select
+              class="custom-select"
+              onChange={e => {
+                const newSize = parseInt(e.target.value);
+                if (newSize === 1) {
+                  this.setState({ type: "PARAGRAPH" });
+                } else if (newSize === 2) {
+                  this.setState({ type: "HEADING" });
+                } else {
+                  this.setState({ type: "HEADING" });
+                }
+              }}
+            >
               <option>Choose...</option>
-              <option value="1">
-                Paragraph
-              </option>
+              <option value="1">Paragraph</option>
               <option value="2">Heading</option>
             </select>
           </div>
@@ -88,6 +93,7 @@ class ParagraphWidget extends React.Component {
           <div class="input-group mb-3 col-12">
             <textarea
               placeholder="Paragraph text"
+              defaultValue={this.props.title}
               type="text"
               class="form-control"
               onChange={e =>
@@ -104,6 +110,7 @@ class ParagraphWidget extends React.Component {
             <input
               type="text"
               placeholder="Widget name"
+              defaultValue={this.props.name}
               class="form-control"
               onChange={e =>
                 this.updateNameForm({
@@ -116,7 +123,8 @@ class ParagraphWidget extends React.Component {
 
         <div class="col">
           {this.state.editing && this.state.preview && <h3>Preview</h3>}
-          {this.state.editing && this.state.preview && <p>THIS IS THE TEXT</p>}
+          {this.state.editing && <p>{this.state.paragraphText}</p>}
+
           {this.state.editing && (
             <button
               type="button"

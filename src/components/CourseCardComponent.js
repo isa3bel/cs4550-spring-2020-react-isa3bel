@@ -21,7 +21,6 @@ class CourseCard extends React.Component {
   }
 
   clickedSave = (courseName) => {
-      console.log("key from row shiuld be id: " + this.props.id)
       this.props.updateCourse(this.props.id, courseName);
       this.setState({editing: !this.state.editing});
   }

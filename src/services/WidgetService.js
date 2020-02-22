@@ -52,7 +52,7 @@ class WidgetService {
   }
   
     findAllWidgets() {
-      return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
+      return fetch(`http://localhost:8080/widgets`)
         .then(response => response.json())
     }
 

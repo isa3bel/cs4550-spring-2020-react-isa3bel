@@ -6,13 +6,13 @@ import widgetService from "../services/WidgetService";
 
 class WidgetList extends React.Component {
   componentDidMount() {
-    //this.props.findWidgetsForTopic(this.props.topicId);
-   this.props.findAllWidgets();
+    this.props.findWidgetsForTopic(this.props.topicId);
+    //this.props.findAllWidgets();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.topicId != this.props.topicId) {
-        this.props.findWidgetsForTopic(this.props.topicId);
+      this.props.findWidgetsForTopic(this.props.topicId);
     }
   }
 
@@ -36,21 +36,26 @@ class WidgetList extends React.Component {
 
           <ul>
             {this.props.widgets.map(
-              widget => //console.log(JSON.stringify(widget)+ 'widgetssss')
+              (
+                widget //console.log(JSON.stringify(widget)+ 'widgetssss')
+              ) =>
                 (widget.type === "HEADING" && (
                   <HeadingWidget
-                  title={widget.title}
+                    title={widget.title}
                     deleteWidget={this.props.deleteWidget}
                     topicId={this.props.topicId}
                     widgetId={widget.id}
                     updateWidget={this.props.updateWidget}
+                    size={widget.size}
+                    name={widget.name}
                   />
                 )) ||
                 (widget.type === "PARAGRAPH" && (
                   <ParagraphWidget
-                  title={widget.title}
-                  topicId={widget.topicId}
-                  widgetId={widget.id}
+                    name={widget.name}
+                    title={widget.title}
+                    topicId={widget.topicId}
+                    widgetId={widget.id}
                     deleteWidget={this.props.deleteWidget}
                     updateWidget={this.props.updateWidget}
                   />
@@ -80,7 +85,7 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatch => {
   return {
     findAllWidgets: () =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
+      fetch(`http://localhost:8080/widgets`)
         .then(response => response.json())
         .then(actualWidgets => {
           return dispatch({
@@ -89,20 +94,22 @@ const dispatcherToPropertyMapper = dispatch => {
           });
         }),
 
-    findWidgetsForTopic: (tid) =>
-    fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${tid}/widgets`)
+    findWidgetsForTopic: tid =>
+      fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
         .then(response => response.json())
-        .then(actualWidgets => dispatch({
+        .then(actualWidgets =>
+          dispatch({
             type: "FIND_WIDGETS_FOR_TOPIC",
             widgets: actualWidgets
-        })),
+          })
+        ),
 
     addWidget: (topicId, widget) =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${topicId}/widgets`, {
+      fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
         method: "POST",
         body: JSON.stringify({
-            title: "New  Widget",
-            id: new Date().getTime() + "",
+          title: "New  Widget",
+          id: new Date().getTime() + ""
         }),
         headers: {
           "content-type": "application/json"
@@ -112,7 +119,7 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
 
     updateWidget: (wid, widget) =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
+      fetch(`http://localhost:8080/api/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
@@ -123,12 +130,13 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(status => dispatch({ type: "UPDATE_WIDGET", widget: status })),
 
     deleteWidget: wid => {
-        console.log(wid + "widget id in delete");
-      return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
+      console.log(wid + "widget id in delete");
+      return fetch(`http://localhost:8080/api/widgets/${wid}`, {
         method: "DELETE"
       })
         .then(response => response.json())
-        .then(status => dispatch({ type: "DELETE_WIDGET", widgetId: wid }))}
+        .then(status => dispatch({ type: "DELETE_WIDGET", widgetId: wid }));
+    }
   };
 };
 

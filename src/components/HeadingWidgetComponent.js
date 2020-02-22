@@ -2,19 +2,23 @@ import React, { Component } from "react";
 
 class HeadingWidget extends React.Component {
   state = {
-    editing: true,
+    editing: false,
     selected: false,
-    headingText: "",
-    widgetName: "",
-    size: "",
+    headingText: this.props.title,
+    widgetName: this.props.name,
+    size: "0",
     preview: true,
-    type: "",
+    type: "HEADING",
   };
 
   componentDidMount() {
-    console.log(this.props.widgetId + " widget id component did mount")
+    console.log('widget title ' + this.props.title);
+    console.log('heading text ' + this.state.headingText);
+    console.log('size props' + this.props.size);
+    console.log('size state' + this.state.size);
+    console.log('editing ' + !this.state.editing);
+  
   }
-
 
   isEditing() {
     this.setState({ editing: !this.state.editing });
@@ -48,13 +52,13 @@ class HeadingWidget extends React.Component {
         {this.state.editing && <h1>Heading Widget</h1>}
         {!this.state.editing && (
           <div>
-          {this.state.size === 0 && <h1>{this.props.title}</h1>}
-            {this.state.size === 1 && <h1>{this.state.title}</h1>}
-            {this.state.size === 2 && <h2>{this.props.title}</h2>}
-            {this.state.size === 3 && <h3>{this.props.title}</h3>}
-            {this.state.size === 4 && <h4>{this.props.title}</h4>}
-            {this.state.size === 5 && <h5>{this.props.title}</h5>}
-            {this.state.size === 6 && <h6>{this.props.title}</h6>}
+          {this.props.size === 0 && <h1>{this.props.title}</h1>}
+            {this.props.size === 1 && <h1>{this.props.title}</h1>}
+            {this.props.size === 2 && <h2>{this.props.title}</h2>}
+            {this.props.size === 3 && <h3>{this.props.title}</h3>}
+            {this.props.size === 4 && <h4>{this.props.title}</h4>}
+            {this.props.size === 5 && <h5>{this.props.title}</h5>}
+            {this.props.size === 6 && <h6>{this.props.title}</h6>}
           </div>
         )}
 
@@ -109,6 +113,7 @@ class HeadingWidget extends React.Component {
             <input
               placeHolder="Heading Text"
               type="text"
+              defaultValue={this.props.title}
               class="form-control"
               onChange={e =>
                 this.updateNameForm({
@@ -129,8 +134,8 @@ class HeadingWidget extends React.Component {
               }}
               value={this.state.size}
             >
-              ><option selected>Choose...</option>
-              <option selected value="1">
+              ><option >Choose...</option>
+              <option value="1">
                 Heading 1
               </option>
               <option value="2">Heading 2</option>
@@ -144,7 +149,7 @@ class HeadingWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group mb-3 col-12">
-            <input type="text" placeholder="Widget name" class="form-control" onChange={e =>
+            <input type="text" placeholder="Widget name" defaultValue={this.props.name} class="form-control" onChange={e =>
               this.updateNameForm({
                 widgetName: e.target.value
               })

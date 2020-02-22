@@ -30,8 +30,6 @@ class LessonTab extends React.Component {
         <ul class="nav nav-tabs nav-fill wbdv-text-color">
           {this.props.lessons &&
             this.props.lessons.map(lesson => {
-              console.log("lesson object " + JSON.stringify(lesson));
-              console.log("lesson object title" + lesson.title);
               return (
                 <LessonsComponent
                   title={lesson.title}

@@ -1,5 +1,4 @@
 export const findModuleForCourse = (courseId) => {
-console.log(courseId)
     return fetch(`https://wbdv-generic-server.herokuapp.com/api/isabelbolger/courses/${courseId}/modules`)
         .then(response => response.json())}
 

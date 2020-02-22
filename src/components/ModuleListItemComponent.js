@@ -21,7 +21,6 @@ class ModuleListItem extends React.Component {
   }
 
   clickedSave() {
-    console.log('clicked save');
     this.setState({ editing: !this.state.editing });
   }
 
