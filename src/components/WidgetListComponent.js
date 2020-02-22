@@ -36,9 +36,10 @@ class WidgetList extends React.Component {
 
           <ul>
             {this.props.widgets.map(
-              widget => //console.log(widget.id+ 'widgetssss')
+              widget => //console.log(JSON.stringify(widget)+ 'widgetssss')
                 (widget.type === "HEADING" && (
                   <HeadingWidget
+                  title={widget.title}
                     deleteWidget={this.props.deleteWidget}
                     topicId={this.props.topicId}
                     widgetId={widget.id}
@@ -47,6 +48,9 @@ class WidgetList extends React.Component {
                 )) ||
                 (widget.type === "PARAGRAPH" && (
                   <ParagraphWidget
+                  title={widget.title}
+                  topicId={widget.topicId}
+                  widgetId={widget.id}
                     deleteWidget={this.props.deleteWidget}
                     updateWidget={this.props.updateWidget}
                   />
@@ -97,15 +101,15 @@ const dispatcherToPropertyMapper = dispatch => {
       fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
         method: "POST",
         body: JSON.stringify({
-          title: "New  Widget",
-          _id: new Date().getTime() + "",
+            title: "New  Widget",
+            id: new Date().getTime() + "",
         }),
         headers: {
           "content-type": "application/json"
         }
       })
         .then(response => response.json())
-        .then(widget => dispatch({ type: "CREATE_WIDGET", newWidget: widget })),
+        .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
 
     updateWidget: (wid, widget) =>
       fetch(`http://localhost:8080/api/widgets/${wid}`, {
@@ -116,9 +120,10 @@ const dispatcherToPropertyMapper = dispatch => {
         }
       })
         .then(response => response.json())
-        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: widget })),
+        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: status })),
 
     deleteWidget: wid => {
+        console.log(wid + "widget id in delete");
       return fetch(`http://localhost:8080/api/widgets/${wid}`, {
         method: "DELETE"
       })

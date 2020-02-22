@@ -43,7 +43,7 @@ class TopicPills extends React.Component {
                 lessonId={this.props.lessonId}
               />
             ))}
-          {window.location.href.indexOf("lessons") > -1 && (
+          {window.location.href.indexOf("lesson") > -1 && (
             <input
               onChange={e =>
                 this.updateNameForm({
@@ -52,7 +52,7 @@ class TopicPills extends React.Component {
               }
             ></input>
           )}
-          {window.location.href.indexOf("lessons") > -1 && (
+          {window.location.href.indexOf("lesson") > -1 && (
             <button
               type="button"
               onClick={() => this.addTopic()}

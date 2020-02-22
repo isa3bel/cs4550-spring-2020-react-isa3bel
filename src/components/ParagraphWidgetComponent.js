@@ -6,7 +6,8 @@ class ParagraphWidget extends React.Component {
     selected: false,
     paragraphText: "",
     widgetName: "",
-    preview: true
+    preview: true,
+    type: ""
   };
 
   isEditing() {
@@ -24,8 +25,12 @@ class ParagraphWidget extends React.Component {
   clickedSave() {
     this.setState({ editing: !this.state.editing });
     this.props.updateWidget(this.props.topicId, {
-      title: "upated widget",
-      _id: this.props.widgetId
+      title: this.state.paragraphText,
+      id: this.props.widgetId,
+      topicId: this.props.topicId,
+      type: this.state.type,
+      size: 0,
+      name: this.state.widgetName,
     });
   }
 
@@ -48,9 +53,18 @@ class ParagraphWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group col-3">
-            <select class="custom-select">
+            <select class="custom-select" onChange={e => {
+              const newSize = parseInt(e.target.value);
+              if(newSize === 1) {
+                this.setState({ type: "PARAGRAPH" });
+              } else if(newSize === 2) {
+                this.setState({ type: "HEADING" });
+              } else {
+                this.setState({ type: "HEADING" });
+              }
+            }}> 
               <option>Choose...</option>
-              <option value="1" selected>
+              <option value="1">
                 Paragraph
               </option>
               <option value="2">Heading</option>
@@ -62,6 +76,9 @@ class ParagraphWidget extends React.Component {
           <button
             type="button"
             class="btn btn-danger wbdv-exitWidget mb-3 col-.5"
+            onClick={() => {
+              this.props.deleteWidget(this.props.widgetId);
+            }}
           >
             x
           </button>
@@ -99,7 +116,7 @@ class ParagraphWidget extends React.Component {
 
         <div class="col">
           {this.state.editing && this.state.preview && <h3>Preview</h3>}
-          <p>{this.state.paragraphText}</p>
+          {this.state.editing && this.state.preview && <p>THIS IS THE TEXT</p>}
           {this.state.editing && (
             <button
               type="button"

@@ -2,13 +2,18 @@ import React, { Component } from "react";
 
 class HeadingWidget extends React.Component {
   state = {
-    editing: false,
+    editing: true,
     selected: false,
     headingText: "",
     widgetName: "",
     size: "",
     preview: true,
+    type: "",
   };
+
+  componentDidMount() {
+    console.log(this.props.widgetId + " widget id component did mount")
+  }
 
 
   isEditing() {
@@ -25,11 +30,15 @@ class HeadingWidget extends React.Component {
 
   clickedSave() {
     this.setState({ editing: !this.state.editing });
+    this.setState({ headingText: this.state.headingText });
+
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.headingText,
-      _id: this.props.widgetId,
+      type: this.state.type,
+      topicId:  this.props.topicId,
+      id: this.props.widgetId,
       size: this.state.size,
-      widgetName: this.state.widgetName
+      name: this.state.widgetName
     });
   }
 
@@ -37,9 +46,10 @@ class HeadingWidget extends React.Component {
     return (
       <div class="row" id="wbdv-widget-box">
         {this.state.editing && <h1>Heading Widget</h1>}
-        {this.state.editing && (
+        {!this.state.editing && (
           <div>
-            {this.state.size === 1 && <h1>{this.props.title}</h1>}
+          {this.state.size === 0 && <h1>{this.props.title}</h1>}
+            {this.state.size === 1 && <h1>{this.state.title}</h1>}
             {this.state.size === 2 && <h2>{this.props.title}</h2>}
             {this.state.size === 3 && <h3>{this.props.title}</h3>}
             {this.state.size === 4 && <h4>{this.props.title}</h4>}
@@ -62,9 +72,19 @@ class HeadingWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group col-3">
-            <select class="custom-select">
+            <select class="custom-select" onChange={e => {
+              const t = parseInt(e.target.value);
+              if(t === 1) {
+                this.setState({ type: "HEADING" });
+              } else if(t === 2) {
+                this.setState({ type: "PARAGRAPH" });
+              } else {
+                this.setState({ type: "HEADING" });
+              }
+            }}
+            >
               <option>Choose...</option>
-              <option value="1" selected>
+              <option value="1">
                 Heading
               </option>
               <option value="2">Paragraph</option>
@@ -124,7 +144,11 @@ class HeadingWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group mb-3 col-12">
-            <input type="text" placeholder="Widget name" class="form-control" />
+            <input type="text" placeholder="Widget name" class="form-control" onChange={e =>
+              this.updateNameForm({
+                widgetName: e.target.value
+              })
+            }/>
           </div>
         )}
 
