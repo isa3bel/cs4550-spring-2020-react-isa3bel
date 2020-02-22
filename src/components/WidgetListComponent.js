@@ -80,7 +80,7 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatch => {
   return {
     findAllWidgets: () =>
-      fetch(`http://localhost:8080/widgets`)
+      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
         .then(response => response.json())
         .then(actualWidgets => {
           return dispatch({
@@ -90,7 +90,7 @@ const dispatcherToPropertyMapper = dispatch => {
         }),
 
     findWidgetsForTopic: (tid) =>
-    fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
+    fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${tid}/widgets`)
         .then(response => response.json())
         .then(actualWidgets => dispatch({
             type: "FIND_WIDGETS_FOR_TOPIC",
@@ -98,7 +98,7 @@ const dispatcherToPropertyMapper = dispatch => {
         })),
 
     addWidget: (topicId, widget) =>
-      fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
+      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${topicId}/widgets`, {
         method: "POST",
         body: JSON.stringify({
             title: "New  Widget",
@@ -112,7 +112,7 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
 
     updateWidget: (wid, widget) =>
-      fetch(`http://localhost:8080/api/widgets/${wid}`, {
+      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
@@ -124,7 +124,7 @@ const dispatcherToPropertyMapper = dispatch => {
 
     deleteWidget: wid => {
         console.log(wid + "widget id in delete");
-      return fetch(`http://localhost:8080/api/widgets/${wid}`, {
+      return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
         method: "DELETE"
       })
         .then(response => response.json())

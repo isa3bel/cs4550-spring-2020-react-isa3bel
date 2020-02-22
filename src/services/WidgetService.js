@@ -1,5 +1,5 @@
 class WidgetService {
-  url = `https://localhost:8080`;
+  url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
 
   createWidget(tid, widget) {
     return fetch(
@@ -23,11 +23,11 @@ class WidgetService {
     ).then(response => response.json());
   }
 
-  // findWidgetById(tid) {
-  //   fetch(
-  //     `https://wbdv-generic-server.herokuapp.com/api/isabelbolger/topics/${tid}`
-  //   ).then(response => response.json());
-  // }
+  findWidgetById(tid) {
+    fetch(
+      `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/topics/${tid}`
+    ).then(response => response.json());
+  }
 
   updateWidget(wid, widget) {
     fetch(
@@ -52,7 +52,7 @@ class WidgetService {
   }
   
     findAllWidgets() {
-      return fetch(`http://localhost:8080/widgets`)
+      return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
         .then(response => response.json())
     }
 
