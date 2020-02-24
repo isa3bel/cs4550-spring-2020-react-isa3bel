@@ -27,7 +27,8 @@ class ParagraphWidget extends React.Component {
   clickedSave() {
     console.log('clicked paragrph save');
     this.setState({ editing: !this.state.editing });
-    this.props.updateWidget(this.props.topicId, {
+    this.setState({ paragraphText: this.state.paragraphText });
+    this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
       id: this.props.widgetId,
       topicId: this.props.topicId,
@@ -41,7 +42,7 @@ class ParagraphWidget extends React.Component {
     return (
       <div class="row" id="wbdv-widget-box">
         {this.state.editing && <h3 class="col">Paragraph Widget</h3>}
-        {!this.state.editing && <p>{this.props.title}</p>}
+        {!this.state.editing && <p>{this.state.paragraphText}</p>}
 
         {this.state.editing && (
           <button type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">

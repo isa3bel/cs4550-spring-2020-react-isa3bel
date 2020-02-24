@@ -10,7 +10,6 @@ class ModuleList extends React.Component {
   }
   componentDidMount() {
     this.props.findModuleForCourse(this.props.courseId);
-    
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {

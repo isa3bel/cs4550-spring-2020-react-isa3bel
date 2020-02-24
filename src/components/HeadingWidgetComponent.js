@@ -6,18 +6,17 @@ class HeadingWidget extends React.Component {
     selected: false,
     headingText: this.props.title,
     widgetName: this.props.name,
-    size: "0",
+    size: 0,
     preview: true,
-    type: "HEADING",
+    type: this.props.type
   };
 
   componentDidMount() {
-    console.log('widget title ' + this.props.title);
-    console.log('heading text ' + this.state.headingText);
-    console.log('size props' + this.props.size);
-    console.log('size state' + this.state.size);
-    console.log('editing ' + !this.state.editing);
-  
+    console.log("widget title " + this.props.title);
+    console.log("heading text " + this.state.headingText);
+    console.log("size props" + this.props.size);
+    console.log("size state" + this.state.size);
+    console.log("editing " + !this.state.editing);
   }
 
   isEditing() {
@@ -33,13 +32,14 @@ class HeadingWidget extends React.Component {
   };
 
   clickedSave() {
+    console.log('changed type');
     this.setState({ editing: !this.state.editing });
     this.setState({ headingText: this.state.headingText });
 
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.headingText,
       type: this.state.type,
-      topicId:  this.props.topicId,
+      topicId: this.props.topicId,
       id: this.props.widgetId,
       size: this.state.size,
       name: this.state.widgetName
@@ -48,17 +48,17 @@ class HeadingWidget extends React.Component {
 
   render() {
     return (
-      <div class="row" id="wbdv-widget-box">
+      <div class="row justify-content-between" id="wbdv-widget-box">
         {this.state.editing && <h1>Heading Widget</h1>}
         {!this.state.editing && (
           <div>
-          {this.props.size === 0 && <h1>{this.props.title}</h1>}
-            {this.props.size === 1 && <h1>{this.props.title}</h1>}
-            {this.props.size === 2 && <h2>{this.props.title}</h2>}
-            {this.props.size === 3 && <h3>{this.props.title}</h3>}
-            {this.props.size === 4 && <h4>{this.props.title}</h4>}
-            {this.props.size === 5 && <h5>{this.props.title}</h5>}
-            {this.props.size === 6 && <h6>{this.props.title}</h6>}
+            {this.props.size === 0 && <h1>{this.state.headingText}</h1>}
+            {this.props.size === 1 && <h1>{this.state.headingText}</h1>}
+            {this.props.size === 2 && <h2>{this.state.headingText}</h2>}
+            {this.props.size === 3 && <h3>{this.state.headingText}</h3>}
+            {this.props.size === 4 && <h4>{this.state.headingText}</h4>}
+            {this.props.size === 5 && <h5>{this.state.headingText}</h5>}
+            {this.props.size === 6 && <h6>{this.state.headingText}</h6>}
           </div>
         )}
 
@@ -76,21 +76,22 @@ class HeadingWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group col-3">
-            <select class="custom-select" onChange={e => {
-              const t = parseInt(e.target.value);
-              if(t === 1) {
-                this.setState({ type: "HEADING" });
-              } else if(t === 2) {
-                this.setState({ type: "PARAGRAPH" });
-              } else {
-                this.setState({ type: "HEADING" });
-              }
-            }}
+            <select
+              class="custom-select"
+              onChange={e => {
+                const t = parseInt(e.target.value);
+                if (t === 1) {
+                  this.setState({ type: "HEADING" });
+                  
+                } else if (t === 2) {
+                  this.setState({ type: "PARAGRAPH" });
+                } else {
+                  this.setState({ type: "HEADING" });
+                }
+              }}
             >
               <option>Choose...</option>
-              <option value="1">
-                Heading
-              </option>
+              <option value="1">Heading</option>
               <option value="2">Paragraph</option>
             </select>
           </div>
@@ -111,7 +112,7 @@ class HeadingWidget extends React.Component {
         {this.state.editing && (
           <div class="input-group mb-3 col-12">
             <input
-              placeHolder="Heading Text"
+              placeholder="Heading Text"
               type="text"
               defaultValue={this.props.title}
               class="form-control"
@@ -134,10 +135,8 @@ class HeadingWidget extends React.Component {
               }}
               value={this.state.size}
             >
-              ><option >Choose...</option>
-              <option value="1">
-                Heading 1
-              </option>
+              ><option>Choose...</option>
+              <option value="1">Heading 1</option>
               <option value="2">Heading 2</option>
               <option value="3">Heading 3</option>
               <option value="4">Heading 4</option>
@@ -149,17 +148,34 @@ class HeadingWidget extends React.Component {
 
         {this.state.editing && (
           <div class="input-group mb-3 col-12">
-            <input type="text" placeholder="Widget name" defaultValue={this.props.name} class="form-control" onChange={e =>
-              this.updateNameForm({
-                widgetName: e.target.value
-              })
-            }/>
+            <input
+              type="text"
+              placeholder="Widget name"
+              defaultValue={this.props.name}
+              class="form-control"
+              onChange={e =>
+                this.updateNameForm({
+                  widgetName: e.target.value
+                })
+              }
+            />
           </div>
         )}
 
         <div class="col">
           {this.state.editing && this.state.preview && <h3>Preview</h3>}
-          {this.state.editing && this.state.preview && <h1>{this.state.headingText}</h1>}
+          {this.state.editing && this.state.preview && (
+            <div>
+              {this.state.size === 0 && <h1>{this.state.headingText}</h1>}
+              {this.state.size === 1 && <h1>{this.state.headingText}</h1>}
+              {this.state.size === 2 && <h2>{this.state.headingText}</h2>}
+              {this.state.size === 3 && <h3>{this.state.headingText}</h3>}
+              {this.state.size === 4 && <h4>{this.state.headingText}</h4>}
+              {this.state.size === 5 && <h5>{this.state.headingText}</h5>}
+              {this.state.size === 6 && <h6>{this.state.headingText}</h6>}
+            </div>
+          )}
+
           {this.state.editing && (
             <button
               type="button"

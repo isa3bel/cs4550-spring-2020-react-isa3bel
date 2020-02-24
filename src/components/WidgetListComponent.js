@@ -41,6 +41,7 @@ class WidgetList extends React.Component {
               ) =>
                 (widget.type === "HEADING" && (
                   <HeadingWidget
+                  type={widget.type}
                     title={widget.title}
                     deleteWidget={this.props.deleteWidget}
                     topicId={this.props.topicId}
@@ -85,7 +86,7 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatch => {
   return {
     findAllWidgets: () =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
+      fetch(`http://localhost:8080/widgets`)
         .then(response => response.json())
         .then(actualWidgets => {
           return dispatch({
@@ -95,7 +96,7 @@ const dispatcherToPropertyMapper = dispatch => {
         }),
 
     findWidgetsForTopic: tid =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${tid}/widgets`)
+      fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
         .then(response => response.json())
         .then(actualWidgets =>
           dispatch({
@@ -105,7 +106,7 @@ const dispatcherToPropertyMapper = dispatch => {
         ),
 
     addWidget: (topicId, widget) =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/topics/${topicId}/widgets`, {
+      fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
         method: "POST",
         body: JSON.stringify({
           title: "New  Widget",
@@ -118,8 +119,9 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(response => response.json())
         .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
 
-    updateWidget: (wid, widget) =>
-      fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
+    updateWidget: (wid, widget) => {
+        console.log('update widget service saved ', widget);
+     return fetch(`http://localhost:8080/api/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
@@ -127,11 +129,12 @@ const dispatcherToPropertyMapper = dispatch => {
         }
       })
         .then(response => response.json())
-        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: status })),
+        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: status }))
+    },
 
     deleteWidget: wid => {
       console.log(wid + "widget id in delete");
-      return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/api/widgets/${wid}`, {
+      return fetch(`http://localhost:8080/api/widgets/${wid}`, {
         method: "DELETE"
       })
         .then(response => response.json())
