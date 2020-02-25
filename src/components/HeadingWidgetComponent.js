@@ -1,23 +1,25 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+
 
 class HeadingWidget extends React.Component {
   state = {
-    editing: false,
+    editing: true,
     selected: false,
     headingText: this.props.title,
     widgetName: this.props.name,
     size: 0,
-    preview: true,
+    preview: false,
     type: this.props.type
   };
 
-  componentDidMount() {
-    console.log("widget title " + this.props.title);
-    console.log("heading text " + this.state.headingText);
-    console.log("size props" + this.props.size);
-    console.log("size state" + this.state.size);
-    console.log("editing " + !this.state.editing);
-  }
+  // componentDidMount() {
+  //   console.log("widget title " + this.props.title);
+  //   console.log("heading text " + this.state.headingText);
+  //   console.log("size props" + this.props.size);
+  //   console.log("size state" + this.state.size);
+  //   console.log("editing " + !this.state.editing);
+  // }
 
   isEditing() {
     this.setState({ editing: !this.state.editing });
@@ -46,10 +48,23 @@ class HeadingWidget extends React.Component {
     });
   }
 
+  updateWidgetType = (e) => {
+    // service call to update widget
+    console.log("type updated")
+    this.props.updateWidget(this.props.widgetId, {
+      title: this.state.headingText,
+      type: e.target.value,
+      topicId: this.props.topicId,
+      id: this.props.widgetId,
+      size: this.state.size,
+      name: this.state.widgetName
+    });
+  }
+
   render() {
     return (
       <div class="row justify-content-between" id="wbdv-widget-box">
-        {this.state.editing && <h1>Heading Widget</h1>}
+        {this.state.editing && !this.state.preview && <h1>Heading Widget</h1>}
         {!this.state.editing && (
           <div>
             {this.props.size === 0 && <h1>{this.state.headingText}</h1>}
@@ -62,42 +77,46 @@ class HeadingWidget extends React.Component {
           </div>
         )}
 
-        {this.state.editing && (
-          <button type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">
+        {this.state.editing && !this.state.preview && (
+          <button onClick={() => this.props.moveUp({
+            title: this.state.headingText,
+            type: this.state.type,
+            topicId: this.props.topicId,
+            id: this.props.widgetId,
+            size: this.state.size,
+            name: this.state.widgetName
+          })} type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">
             <span class="fa fa-arrow-up"></span>
           </button>
         )}
 
-        {this.state.editing && (
-          <button type="button" class="btn wbdv-arrow btn-warning col-1 mb-3">
+        {this.state.editing && !this.state.preview && (
+          <button type="button" onClick={() => this.props.moveDown(this.props.moveUp({
+            title: this.state.headingText,
+            type: this.state.type,
+            topicId: this.props.topicId,
+            id: this.props.widgetId,
+            size: this.state.size,
+            name: this.state.widgetName
+          }))} class="btn wbdv-arrow btn-warning col-1 mb-3">
             <span class="fa fa-arrow-down"></span>
           </button>
         )}
 
-        {this.state.editing && (
+        {this.state.editing && !this.state.preview && (
           <div class="input-group col-3">
             <select
               class="custom-select"
-              onChange={e => {
-                const t = parseInt(e.target.value);
-                if (t === 1) {
-                  this.setState({ type: "HEADING" });
-                  
-                } else if (t === 2) {
-                  this.setState({ type: "PARAGRAPH" });
-                } else {
-                  this.setState({ type: "HEADING" });
-                }
-              }}
+              onChange={this.updateWidgetType}
             >
               <option>Choose...</option>
-              <option value="1">Heading</option>
-              <option value="2">Paragraph</option>
+              <option value="HEADING">Heading</option>
+              <option value="PARAGRAPH">Paragraph</option>
             </select>
           </div>
         )}
 
-        {this.state.editing && (
+        {this.state.editing && !this.state.preview && (
           <button
             onClick={() => {
               this.props.deleteWidget(this.props.widgetId);
@@ -109,7 +128,7 @@ class HeadingWidget extends React.Component {
           </button>
         )}
 
-        {this.state.editing && (
+        {this.state.editing && !this.state.preview && (
           <div class="input-group mb-3 col-12">
             <input
               placeholder="Heading Text"
@@ -125,7 +144,7 @@ class HeadingWidget extends React.Component {
           </div>
         )}
 
-        {this.state.editing && (
+        {this.state.editing && !this.state.preview && (
           <div class="input-group mb-3 col">
             <select
               class="custom-select"
@@ -146,7 +165,7 @@ class HeadingWidget extends React.Component {
           </div>
         )}
 
-        {this.state.editing && (
+        {this.state.editing && !this.state.preview && (
           <div class="input-group mb-3 col-12">
             <input
               type="text"
@@ -163,8 +182,8 @@ class HeadingWidget extends React.Component {
         )}
 
         <div class="col">
-          {this.state.editing && this.state.preview && <h3>Preview</h3>}
-          {this.state.editing && this.state.preview && (
+          {this.state.editing && !this.state.preview && <h3>Preview</h3>}
+          {this.state.editing && (
             <div>
               {this.state.size === 0 && <h1>{this.state.headingText}</h1>}
               {this.state.size === 1 && <h1>{this.state.headingText}</h1>}
@@ -217,5 +236,4 @@ class HeadingWidget extends React.Component {
     );
   }
 }
-
 export default HeadingWidget;

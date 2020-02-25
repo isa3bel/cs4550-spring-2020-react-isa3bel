@@ -11,6 +11,7 @@ class WidgetList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+      console.log("Widget list updated", this.props.widgets)
     if (prevProps.topicId != this.props.topicId) {
       this.props.findWidgetsForTopic(this.props.topicId);
     }
@@ -37,11 +38,12 @@ class WidgetList extends React.Component {
           <ul>
             {this.props.widgets.map(
               (
-                widget //console.log(JSON.stringify(widget)+ 'widgetssss')
+                widget 
               ) =>
+              
                 (widget.type === "HEADING" && (
                   <HeadingWidget
-                  type={widget.type}
+                    type={widget.type}
                     title={widget.title}
                     deleteWidget={this.props.deleteWidget}
                     topicId={this.props.topicId}
@@ -49,6 +51,9 @@ class WidgetList extends React.Component {
                     updateWidget={this.props.updateWidget}
                     size={widget.size}
                     name={widget.name}
+                    moveUp={this.props.moveUp}
+                    moveDown={this.props.moveDown}
+                    widget={widget}
                   />
                 )) ||
                 (widget.type === "PARAGRAPH" && (
@@ -86,8 +91,7 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatch => {
   return {
     findAllWidgets: () =>
-      fetch(`http://localhost:8080/widgets`)
-        .then(response => response.json())
+      widgetService.findAllWidgets()
         .then(actualWidgets => {
           return dispatch({
             type: "FIND_ALL_WIDGETS",
@@ -96,8 +100,7 @@ const dispatcherToPropertyMapper = dispatch => {
         }),
 
     findWidgetsForTopic: tid =>
-      fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
-        .then(response => response.json())
+      widgetService.findWidgetsForTopic(tid)
         .then(actualWidgets =>
           dispatch({
             type: "FIND_WIDGETS_FOR_TOPIC",
@@ -106,39 +109,27 @@ const dispatcherToPropertyMapper = dispatch => {
         ),
 
     addWidget: (topicId, widget) =>
-      fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
-        method: "POST",
-        body: JSON.stringify({
-          title: "New  Widget",
-          id: new Date().getTime() + ""
-        }),
-        headers: {
-          "content-type": "application/json"
-        }
-      })
-        .then(response => response.json())
+      widgetService.createWidget(topicId)
         .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
 
     updateWidget: (wid, widget) => {
-        console.log('update widget service saved ', widget);
-     return fetch(`http://localhost:8080/api/widgets/${wid}`, {
-        method: "PUT",
-        body: JSON.stringify(widget),
-        headers: {
-          "content-type": "application/json"
-        }
-      })
-        .then(response => response.json())
-        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: status }))
+     widgetService.updateWidget(wid, widget)
+        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: widget }));
     },
 
     deleteWidget: wid => {
-      console.log(wid + "widget id in delete");
-      return fetch(`http://localhost:8080/api/widgets/${wid}`, {
-        method: "DELETE"
-      })
-        .then(response => response.json())
+      widgetService.deleteWidget(wid)
         .then(status => dispatch({ type: "DELETE_WIDGET", widgetId: wid }));
+    },
+
+    moveUp: (wid, widget) => {
+        console.log('move up')
+        return fetch(`http://localhost:8080/widgets`)
+        .then(response => response.json())
+        .then(status => dispatch({ type: "MOVE_UP", widget: widget }));
+    },
+    moveDown: (wid, widget) => {
+      dispatch({ type: "MOVE_DOWN", widget: widget });
     }
   };
 };

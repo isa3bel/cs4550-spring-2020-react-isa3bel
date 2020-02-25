@@ -1,37 +1,36 @@
-class WidgetService {
-  url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
 
-  createWidget(tid, widget) {
-    return fetch(
-      `${this.url}/widgets`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          id: (new Date()).getTime() + "",
-          title: "New Widget"
-        }),
-        headers: {
-          "content-type": "application/json"
-        }
+//  const url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
+ const url = `http://localhost:8080`;
+
+  export const createWidget = (tid, widget) => {
+    return fetch(`${url}/api/topics/${tid}/widgets`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "New  Widget",
+        id: new Date().getTime() + ""
+      }),
+      headers: {
+        "content-type": "application/json"
       }
+    })
+      .then(response => response.json())
+  }
+
+  export const findWidgetsForTopic = (tid) => {
+    return fetch(
+      `${url}/api/topics/${tid}/widgets`
     ).then(response => response.json());
   }
 
-  findWidgetsForTopic(tid) {
-    fetch(
-      `https://localhost:8080/api/lessons/${tid}/topics`
+  export const findWidgetById = (tid) => {
+    return fetch(
+      `${url}/topics/${tid}`
     ).then(response => response.json());
   }
 
-  findWidgetById(tid) {
-    fetch(
-      `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/topics/${tid}`
-    ).then(response => response.json());
-  }
-
-  updateWidget(wid, widget) {
-    fetch(
-      `${this.url}/api/widgets/${wid}`,
+  export const updateWidget = (wid, widget) => {
+    return fetch(
+      `${url}/api/widgets/${wid}`,
       {
         method: "PUT",
         body: JSON.stringify(widget),
@@ -42,21 +41,25 @@ class WidgetService {
     ).then(response => response.json());
   }
 
-  deleteWidget(wid) {
-    fetch(
-      `${this.url}/api/widgets/${wid}`,
+  export const deleteWidget = (wid) => {
+    return fetch(
+      `${url}/api/widgets/${wid}`,
       {
         method: "DELETE"
       }
     ).then(response => response.json());
   }
   
-    findAllWidgets() {
-      return fetch(`http://localhost:8080/widgets`)
+   export const findAllWidgets = () => {
+      return fetch(`${url}/widgets`)
         .then(response => response.json())
     }
 
-}
-  
-
-export default WidgetService;
+export default {
+  createWidget,
+  findAllWidgets,
+  deleteWidget,
+  updateWidget,
+  findWidgetsForTopic,
+  findWidgetById,
+};
