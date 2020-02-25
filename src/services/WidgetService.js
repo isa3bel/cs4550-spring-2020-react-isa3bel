@@ -1,6 +1,6 @@
 
-//  const url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
- const url = `http://localhost:8080`;
+  const url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
+ //const url = `http://localhost:8080`;
 
   export const createWidget = (tid, widget) => {
     return fetch(`${url}/api/topics/${tid}/widgets`, {
