@@ -6,8 +6,10 @@ const widgets = [
 
 const reorderWidgets = (widgets, from, to) => {
   widgets = widgets.map((widget, index) => {
+    console.log("ordering widget " + JSON.stringify(widget) + " " + index )
     switch (index) {
       case from:
+        console.log("widget from " + JSON.stringify(widgets[to]))
         return widgets[to];
       case to:
         return widgets[from];

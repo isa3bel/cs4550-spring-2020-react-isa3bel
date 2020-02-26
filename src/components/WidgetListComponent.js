@@ -129,7 +129,10 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(status => dispatch({ type: "MOVE_UP", widget: widget }));
     },
     moveDown: (wid, widget) => {
-      dispatch({ type: "MOVE_DOWN", widget: widget });
+        console.log('move down')
+        return fetch(`http://localhost:8080/widgets`)
+        .then(response => response.json())
+        .then(status => dispatch({ type: "MOVE_DOWN", widget: widget }));
     }
   };
 };

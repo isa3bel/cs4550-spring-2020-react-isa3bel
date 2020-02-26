@@ -91,14 +91,14 @@ class HeadingWidget extends React.Component {
         )}
 
         {this.state.editing && !this.state.preview && (
-          <button type="button" onClick={() => this.props.moveDown(this.props.moveUp({
+          <button type="button" onClick={() => this.props.moveDown({
             title: this.state.headingText,
             type: this.state.type,
             topicId: this.props.topicId,
             id: this.props.widgetId,
             size: this.state.size,
             name: this.state.widgetName
-          }))} class="btn wbdv-arrow btn-warning col-1 mb-3">
+          })} class="btn wbdv-arrow btn-warning col-1 mb-3">
             <span class="fa fa-arrow-down"></span>
           </button>
         )}
