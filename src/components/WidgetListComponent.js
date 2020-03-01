@@ -3,6 +3,7 @@ import HeadingWidget from "./HeadingWidgetComponent";
 import ParagraphWidget from "./ParagraphWidgetComponent";
 import { connect } from "react-redux";
 import widgetService from "../services/WidgetService";
+import {updateWidget, deleteWidget, createWidget, findWidgetsForTopic} from "../actions/widgetActions"
 
 class WidgetList extends React.Component {
   componentDidMount() {
@@ -102,24 +103,21 @@ const dispatcherToPropertyMapper = dispatch => {
     findWidgetsForTopic: tid =>
       widgetService.findWidgetsForTopic(tid)
         .then(actualWidgets =>
-          dispatch({
-            type: "FIND_WIDGETS_FOR_TOPIC",
-            widgets: actualWidgets
-          })
+          dispatch(findWidgetsForTopic(actualWidgets))
         ),
 
     addWidget: (topicId, widget) =>
       widgetService.createWidget(topicId)
-        .then(widget => dispatch({ type: "CREATE_WIDGET", widget: widget })),
+        .then(widget => dispatch(createWidget(widget))),
 
     updateWidget: (wid, widget) => {
      widgetService.updateWidget(wid, widget)
-        .then(status => dispatch({ type: "UPDATE_WIDGET", widget: widget }));
+        .then(status => dispatch(updateWidget(widget)));
     },
 
     deleteWidget: wid => {
       widgetService.deleteWidget(wid)
-        .then(status => dispatch({ type: "DELETE_WIDGET", widgetId: wid }));
+        .then(status => dispatch(deleteWidget(wid)));
     },
 
     moveUp: (wid, widget) => {

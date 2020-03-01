@@ -7,7 +7,7 @@ export const deleteWidget = (widgetId) => ({
 export const CREATE_WIDGET = "CREATE_WIDGET"
 export const createWidget = (widget) => ({
     type: CREATE_WIDGET,
-    wigdget: widget
+    widget: widget
 })
 
 export const FIND_WIDGETS_FOR_TOPIC= "FIND_WIDGETS_FOR_TOPIC"

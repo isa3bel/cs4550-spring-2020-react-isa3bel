@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ModuleListItem from "./ModuleListItemComponent";
 import { connect } from "react-redux";
 import moduleService from "../services/ModuleService";
+import {createModule, updateModule, deleteModule, findModulesForCourse} from "../actions/moduleActions";
 
 class ModuleList extends React.Component {
 
@@ -65,30 +66,27 @@ const dispatchToPropertyMapper = dispatch => {
   return {
     findModuleForCourse: courseId =>
       moduleService.findModuleForCourse(courseId).then(actualModules => {
-        return dispatch({
-          type: "FIND_MODULES_FOR_COURSE",
-          modules: actualModules
-        });
+        return dispatch(findModulesForCourse(actualModules));
       }),
     deleteModule: moduleId => {
       return moduleService
         .deleteModule(moduleId)
         .then(status =>
-          dispatch({ type: "DELETE_MODULE", moduleId: moduleId })
+          dispatch(deleteModule(moduleId))
         );
     },
     updateModule: (moduleId, module) => {
       return moduleService
         .updateModule(moduleId, module)
         .then(status =>
-          dispatch({ type: "UPDATE_MODULE", newModule: module })
+          dispatch(updateModule(module))
         );
     },
     createModule: (courseId, module) => {
       return moduleService
       .createModule(courseId, module)
       .then(status => 
-        dispatch({ type: "CREATE_MODULE", newModule: module }));
+        dispatch(createModule(module)));
     },
 
   };

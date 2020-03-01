@@ -13,14 +13,6 @@ class HeadingWidget extends React.Component {
     type: this.props.type
   };
 
-  // componentDidMount() {
-  //   console.log("widget title " + this.props.title);
-  //   console.log("heading text " + this.state.headingText);
-  //   console.log("size props" + this.props.size);
-  //   console.log("size state" + this.state.size);
-  //   console.log("editing " + !this.state.editing);
-  // }
-
   isEditing() {
     this.setState({ editing: !this.state.editing });
   }
@@ -91,14 +83,7 @@ class HeadingWidget extends React.Component {
         )}
 
         {this.state.editing && !this.state.preview && (
-          <button type="button" onClick={() => this.props.moveDown({
-            title: this.state.headingText,
-            type: this.state.type,
-            topicId: this.props.topicId,
-            id: this.props.widgetId,
-            size: this.state.size,
-            name: this.state.widgetName
-          })} class="btn wbdv-arrow btn-warning col-1 mb-3">
+          <button type="button" class="btn wbdv-arrow btn-warning col-1 mb-3">
             <span class="fa fa-arrow-down"></span>
           </button>
         )}

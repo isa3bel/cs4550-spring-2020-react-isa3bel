@@ -10,9 +10,9 @@ export const addLesson = (lesson) => ({
     lesson: lesson
 })
 
-export const FIND_LESSON_FOR_MODULE = "FIND_LESSON_FOR_MODULE"
+export const FIND_LESSONS_FOR_MODULE = "FIND_LESSONS_FOR_MODULE"
 export const findLessonsForModule = (actualLessons) => ({
-          type: FIND_LESSON_FOR_MODULE,
+          type: FIND_LESSONS_FOR_MODULE,
           lessons: actualLessons
 });
 

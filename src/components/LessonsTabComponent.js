@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LessonsComponent from "./LessonsComponent";
 import { connect } from "react-redux";
 import lessonService from "../services/LessonService";
+import {addLesson, deleteLesson, updateLesson, findAllLessons, findLessonsForModule} from "../actions/lessonsAction";
 
 class LessonTab extends React.Component {
   state = {
@@ -73,31 +74,22 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatcher => ({
   findLessonsForModule: moduleId =>
     lessonService.findLessonsForModule(moduleId).then(lessons =>
-      dispatcher({
-        type: "FIND_LESSONS_FOR_MODULE",
-        lessons: lessons
-      })
+      dispatcher(findLessonsForModule(lessons))
     ),
   updateLesson: (lessonId, lesson) => {
     return lessonService.
         updateLesson(lessonId, lesson)
         .then(status =>
-          dispatcher({ type: "UPDATE_LESSON", lesson: lesson })
+          dispatcher(updateLesson(lesson))
         );
     },
   addLesson: (moduleId, lesson) =>
     lessonService.createLesson(moduleId,lesson).then(actualLesson =>
-      dispatcher({
-        type: "CREATE_LESSON",
-        lesson: actualLesson
-      })
+      dispatcher(addLesson(lesson))
     ),
   deleteLesson: lessonId =>
     lessonService.deleteLesson(lessonId).then(status =>
-      dispatcher({
-        type: "DELETE_LESSON",
-        lessonId: lessonId
-      })
+      dispatcher(deleteLesson(lessonId))
     ),
   findAllLessons: () =>
     lessonService.findAllLessonsForModule.then(lessons =>

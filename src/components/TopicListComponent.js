@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TopicPillsComponent from "./TopicPillsComponent";
 import { connect } from "react-redux";
 import topicService from "../services/TopicService";
+import {updateTopic, findTopicsForLesson, deleteTopic, createTopic} from "../actions/topicActions"
 
 class TopicPills extends React.Component {
   state = {
@@ -77,25 +78,22 @@ const dispatchToPropertyMapper = dispatch => {
   return {
     findTopicsForLesson: lessonId =>
       topicService.findTopicsForLesson(lessonId).then(actualTopics => {
-        return dispatch({
-          type: "FIND_TOPICS_FOR_LESSON",
-          topics: actualTopics
-        });
+        return dispatch(findTopicsForLesson(actualTopics));
       }),
     deleteTopic: topicId => {
       return topicService
         .deleteTopic(topicId)
-        .then(status => dispatch({ type: "DELETE_TOPIC", topicId: topicId }));
+        .then(status => dispatch(deleteTopic(topicId)));
     },
     updateTopic: (topicId, topic) => {
       return topicService
         .updateTopic(topicId, topic)
-        .then(status => dispatch({ type: "UPDATE_TOPIC", topic: topic }));
+        .then(status => dispatch(updateTopic(topic)));
     },
     createTopic: (lessonId, topic) => {
       return topicService
         .createTopic(lessonId, topic)
-        .then(status => dispatch({ type: "CREATE_TOPIC", newTopic: topic }));
+        .then(status => dispatch(createTopic(topic)));
     }
   };
 };
