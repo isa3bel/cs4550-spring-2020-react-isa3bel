@@ -122,13 +122,13 @@ const dispatcherToPropertyMapper = dispatch => {
 
     moveUp: (wid, widget) => {
         console.log('move up')
-        return fetch(`http://localhost:8080/widgets`)
+        return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
         .then(response => response.json())
         .then(status => dispatch({ type: "MOVE_UP", widget: widget }));
     },
     moveDown: (wid, widget) => {
         console.log('move down')
-        return fetch(`http://localhost:8080/widgets`)
+        return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
         .then(response => response.json())
         .then(status => dispatch({ type: "MOVE_DOWN", widget: widget }));
     }
