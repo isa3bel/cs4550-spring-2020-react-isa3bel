@@ -1,20 +1,16 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 
-class ParagraphWidget extends React.Component {
+class ListWidget extends React.Component {
+
   state = {
     editing: true,
-    selected: false,
-    paragraphText: this.props.title,
+    headingText: this.props.title,
     widgetName: this.props.name,
+    paragraphText: this.props.title,
+    ordered: 1,
     preview: false,
-    type: "PARAGRAPH"
+    type: "LIST",
   };
-
-  
-
-  isEditing() {
-    this.setState({ editing: !this.state.editing });
-  }
 
   updateNameForm = newState => {
     this.setState(newState);
@@ -24,16 +20,20 @@ class ParagraphWidget extends React.Component {
     // service call to update widget
     console.log("type updated")
     this.props.updateWidget(this.props.widgetId, {
-      title: this.state.headingText,
+      title: this.props.headingText,
       type: e.target.value,
       topicId: this.props.topicId,
       id: this.props.widgetId,
       size: this.state.size,
-      name: this.state.widgetName
+      ordered: this.state.ordered,
+      name: this.state.widgetName,
     });
   }
 
-  
+  isEditing() {
+    this.setState({ editing: !this.state.editing });
+  }
+
   preview() {
     this.setState({ preview: !this.state.preview });
   }
@@ -47,14 +47,15 @@ class ParagraphWidget extends React.Component {
       topicId: this.props.topicId,
       type: this.state.type,
       size: 0,
-      name: this.state.widgetName
+      ordered: this.state.ordered,
+      name: this.state.widgetName,
     });
   }
 
   render() {
-    return (
+    return(
       <div class="row" id="wbdv-widget-box">
-        {this.state.editing && !this.state.preview && <h3 class="col">Paragraph Widget</h3>}
+        {this.state.editing && !this.state.preview && <h3 class="col">List Widget</h3>}
         {!this.state.editing && <p>{this.state.paragraphText}</p>}
 
         {this.state.editing && !this.state.preview && (
@@ -83,6 +84,7 @@ class ParagraphWidget extends React.Component {
             </select>
           </div>
         )}
+        
 
         {this.state.editing && !this.state.preview && (
           <button
@@ -99,8 +101,7 @@ class ParagraphWidget extends React.Component {
         {this.state.editing && !this.state.preview && (
           <div class="input-group mb-3 col-12">
             <textarea
-              placeholder="Paragraph text"
-              defaultValue={this.props.title}
+              placeholder="Enter one list item per line"
               type="text"
               class="form-control"
               onChange={e =>
@@ -109,6 +110,23 @@ class ParagraphWidget extends React.Component {
                 })
               }
             />
+          </div>
+        )}
+
+        {this.state.editing && !this.state.preview && (
+          <div class="input-group mb-3 col">
+            <select
+              class="custom-select"
+              onChange={e => {
+                const newSize = parseInt(e.target.value);
+                this.setState({ ordered: newSize});
+              }}
+              value={this.state.size}
+            >
+              >
+              <option value="1">Unordered</option>
+              <option value="2">Ordered</option>
+            </select>
           </div>
         )}
 
@@ -130,7 +148,12 @@ class ParagraphWidget extends React.Component {
 
         <div class="col">
           {this.state.editing && !this.state.preview && <h3>Preview</h3>}
-          {this.state.editing && <p>{this.state.paragraphText}</p>}
+          {this.state.editing && (
+            <div>
+              {this.state.ordered === 1 && <h1>{this.state.paragraphText}</h1>}
+              {this.state.ordered === 2 && <h2>{this.state.paragraphText}</h2>}
+            </div>
+          )}
 
           {this.state.editing && (
             <button
@@ -171,8 +194,9 @@ class ParagraphWidget extends React.Component {
           )}
         </div>
       </div>
+
     );
   }
 }
 
-export default ParagraphWidget;
+export default ListWidget;

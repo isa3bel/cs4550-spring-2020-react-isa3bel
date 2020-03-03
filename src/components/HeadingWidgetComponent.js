@@ -97,6 +97,8 @@ class HeadingWidget extends React.Component {
               <option>Choose...</option>
               <option value="HEADING">Heading</option>
               <option value="PARAGRAPH">Paragraph</option>
+              <option value="LIST">List</option>
+              <option value="IMAGE">Image</option>
             </select>
           </div>
         )}

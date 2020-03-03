@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import HeadingWidget from "./HeadingWidgetComponent";
+import ListWidget from "./ListWidget";
 import ParagraphWidget from "./ParagraphWidgetComponent";
 import { connect } from "react-redux";
 import widgetService from "../services/WidgetService";
-import {updateWidget, deleteWidget, createWidget, findWidgetsForTopic} from "../actions/widgetActions"
+import {
+  updateWidget,
+  deleteWidget,
+  createWidget,
+  findWidgetsForTopic
+} from "../actions/widgetActions";
 
 class WidgetList extends React.Component {
   componentDidMount() {
@@ -12,7 +18,7 @@ class WidgetList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-      console.log("Widget list updated", this.props.widgets)
+    console.log("Widget list updated", this.props.widgets);
     if (prevProps.topicId != this.props.topicId) {
       this.props.findWidgetsForTopic(this.props.topicId);
     }
@@ -38,10 +44,7 @@ class WidgetList extends React.Component {
 
           <ul>
             {this.props.widgets.map(
-              (
-                widget 
-              ) =>
-              
+              widget =>
                 (widget.type === "HEADING" && (
                   <HeadingWidget
                     type={widget.type}
@@ -58,6 +61,27 @@ class WidgetList extends React.Component {
                   />
                 )) ||
                 (widget.type === "PARAGRAPH" && (
+                  <ParagraphWidget
+                    name={widget.name}
+                    title={widget.title}
+                    topicId={widget.topicId}
+                    widgetId={widget.id}
+                    deleteWidget={this.props.deleteWidget}
+                    updateWidget={this.props.updateWidget}
+                  />
+                )) ||
+                (widget.type === "LIST" && (
+                  <ListWidget
+                    name={widget.name}
+                    title={widget.title}
+                    topicId={widget.topicId}
+                    widgetId={widget.id}
+                    deleteWidget={this.props.deleteWidget}
+                    updateWidget={this.props.updateWidget}
+                    ordered={widget.ordered}
+                  />
+                )) ||
+                (widget.type === "IMAGE" && (
                   <ParagraphWidget
                     name={widget.name}
                     title={widget.title}
@@ -92,43 +116,48 @@ const stateToPropertyMapper = state => ({
 const dispatcherToPropertyMapper = dispatch => {
   return {
     findAllWidgets: () =>
-      widgetService.findAllWidgets()
-        .then(actualWidgets => {
-          return dispatch({
-            type: "FIND_ALL_WIDGETS",
-            widgets: actualWidgets
-          });
-        }),
+      widgetService.findAllWidgets().then(actualWidgets => {
+        return dispatch({
+          type: "FIND_ALL_WIDGETS",
+          widgets: actualWidgets
+        });
+      }),
 
     findWidgetsForTopic: tid =>
-      widgetService.findWidgetsForTopic(tid)
-        .then(actualWidgets =>
-          dispatch(findWidgetsForTopic(actualWidgets))
-        ),
+      widgetService
+        .findWidgetsForTopic(tid)
+        .then(actualWidgets => dispatch(findWidgetsForTopic(actualWidgets))),
 
     addWidget: (topicId, widget) =>
-      widgetService.createWidget(topicId)
+      widgetService
+        .createWidget(topicId)
         .then(widget => dispatch(createWidget(widget))),
 
     updateWidget: (wid, widget) => {
-     widgetService.updateWidget(wid, widget)
+      widgetService
+        .updateWidget(wid, widget)
         .then(status => dispatch(updateWidget(widget)));
     },
 
     deleteWidget: wid => {
-      widgetService.deleteWidget(wid)
+      widgetService
+        .deleteWidget(wid)
         .then(status => dispatch(deleteWidget(wid)));
     },
 
     moveUp: (wid, widget) => {
-        console.log('move up')
-        return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
+      console.log("move up");
+      return fetch(
+        `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`
+      )
         .then(response => response.json())
         .then(status => dispatch({ type: "MOVE_UP", widget: widget }));
     },
     moveDown: (wid, widget) => {
-        console.log('move down')
-        return fetch(`https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`)
+      console.log("move down");
+      return fetch(
+        `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`
+      )
         .then(response => response.json())
         .then(status => dispatch({ type: "MOVE_DOWN", widget: widget }));
     }
