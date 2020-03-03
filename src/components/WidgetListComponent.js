@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import HeadingWidget from "./HeadingWidgetComponent";
 import ListWidget from "./ListWidget";
 import ParagraphWidget from "./ParagraphWidgetComponent";
+import ImageWidget from "./ImageWidget";
 import { connect } from "react-redux";
 import widgetService from "../services/WidgetService";
 import {
@@ -82,7 +83,7 @@ class WidgetList extends React.Component {
                   />
                 )) ||
                 (widget.type === "IMAGE" && (
-                  <ParagraphWidget
+                  <ImageWidget
                     name={widget.name}
                     title={widget.title}
                     topicId={widget.topicId}
