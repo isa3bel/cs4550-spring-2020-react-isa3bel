@@ -54,7 +54,7 @@ class ImageWidget extends React.Component {
     return (
       <div class="row" id="wbdv-widget-box">
         {this.state.editing && !this.state.preview && <h3 class="col">Image Widget</h3>}
-        {!this.state.editing && <p>{this.state.paragraphText}</p>}
+        {!this.state.editing && <img alt="" src={this.state.paragraphText}></img>}
 
         {this.state.editing && !this.state.preview && (
           <button type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">
@@ -129,7 +129,7 @@ class ImageWidget extends React.Component {
 
         <div class="col">
           {this.state.editing && !this.state.preview && <h3>Preview</h3>}
-          {this.state.editing && <p>{this.state.paragraphText}</p>}
+          {this.state.editing && <img alt="" src={this.state.paragraphText}></img>}
 
           {this.state.editing && (
             <button
