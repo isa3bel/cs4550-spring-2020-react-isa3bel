@@ -49,6 +49,7 @@ class HeadingWidget extends React.Component {
       topicId: this.props.topicId,
       id: this.props.widgetId,
       size: this.state.size,
+      ordered: 0,
       name: this.state.widgetName
     });
   }

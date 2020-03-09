@@ -29,6 +29,7 @@ class ParagraphWidget extends React.Component {
       topicId: this.props.topicId,
       id: this.props.widgetId,
       size: this.state.size,
+      ordered: 0,
       name: this.state.widgetName
     });
   }
@@ -47,7 +48,8 @@ class ParagraphWidget extends React.Component {
       topicId: this.props.topicId,
       type: this.state.type,
       size: 0,
-      name: this.state.widgetName
+      ordered: 0,
+      name: this.state.widgetName,
     });
   }
 

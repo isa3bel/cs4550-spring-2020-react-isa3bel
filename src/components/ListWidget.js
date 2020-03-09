@@ -4,7 +4,6 @@ class ListWidget extends React.Component {
 
   state = {
     editing: true,
-    headingText: this.props.title,
     widgetName: this.props.name,
     paragraphText: this.props.title,
     ordered: 1,
@@ -20,7 +19,7 @@ class ListWidget extends React.Component {
     // service call to update widget
     console.log("type updated")
     this.props.updateWidget(this.props.widgetId, {
-      title: this.props.headingText,
+      title: this.state.paragraphText,
       type: e.target.value,
       topicId: this.props.topicId,
       id: this.props.widgetId,
@@ -41,6 +40,7 @@ class ListWidget extends React.Component {
   clickedSave() {
     this.setState({ editing: !this.state.editing });
     this.setState({ paragraphText: this.state.paragraphText });
+    console.log('update list ' + this.state.paragraphText);
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
       id: this.props.widgetId,
@@ -56,7 +56,12 @@ class ListWidget extends React.Component {
     return(
       <div class="row" id="wbdv-widget-box">
         {this.state.editing && !this.state.preview && <h3 class="col">List Widget</h3>}
-        {!this.state.editing && <p>{this.state.paragraphText}</p>}
+        {!this.state.editing && (
+            <div>
+              {this.state.ordered === 1 && <ul>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ul>}
+              {this.state.ordered === 2 && <ol>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ol>}
+            </div>
+          )}
 
         {this.state.editing && !this.state.preview && (
           <button type="button" class="btn btn-warning col-1 mb-3 wbdv-arrow">
@@ -135,7 +140,7 @@ class ListWidget extends React.Component {
             <input
               type="text"
               placeholder="Widget name"
-              defaultValue={this.props.name}
+              defaultValue={this.props.title}
               class="form-control"
               onChange={e =>
                 this.updateNameForm({
@@ -150,8 +155,9 @@ class ListWidget extends React.Component {
           {this.state.editing && !this.state.preview && <h3>Preview</h3>}
           {this.state.editing && (
             <div>
-              {this.state.ordered === 1 && <h1>{this.state.paragraphText}</h1>}
-              {this.state.ordered === 2 && <h2>{this.state.paragraphText}</h2>}
+            {console.log("weird " + this.props.title)}
+              {this.state.ordered === 1 && <ul>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ul>}
+              {this.state.ordered === 2 && <ol>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ol>}
             </div>
           )}
 
