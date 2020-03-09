@@ -16,8 +16,6 @@ class ListWidget extends React.Component {
   };
 
   updateWidgetType = (e) => {
-    // service call to update widget
-    console.log("type updated")
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
       type: e.target.value,
@@ -40,7 +38,6 @@ class ListWidget extends React.Component {
   clickedSave() {
     this.setState({ editing: !this.state.editing });
     this.setState({ paragraphText: this.state.paragraphText });
-    console.log('update list ' + this.state.paragraphText);
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
       id: this.props.widgetId,
@@ -155,7 +152,6 @@ class ListWidget extends React.Component {
           {this.state.editing && !this.state.preview && <h3>Preview</h3>}
           {this.state.editing && (
             <div>
-            {console.log("weird " + this.props.title)}
               {this.state.ordered === 1 && <ul>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ul>}
               {this.state.ordered === 2 && <ol>{this.state.paragraphText.split('\n').map(e => <li>{e}</li>)}</ol>}
             </div>

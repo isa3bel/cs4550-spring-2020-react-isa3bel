@@ -21,14 +21,13 @@ class ParagraphWidget extends React.Component {
   };
 
   updateWidgetType = (e) => {
-    // service call to update widget
-    console.log("type updated")
+    console.log("type updated paragraph")
     this.props.updateWidget(this.props.widgetId, {
-      title: this.state.headingText,
+      title: this.state.paragraphText,
       type: e.target.value,
       topicId: this.props.topicId,
       id: this.props.widgetId,
-      size: this.state.size,
+      size: 0,
       ordered: 0,
       name: this.state.widgetName
     });
@@ -44,11 +43,10 @@ class ParagraphWidget extends React.Component {
     this.setState({ paragraphText: this.state.paragraphText });
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
-      id: this.props.widgetId,
-      topicId: this.props.topicId,
       type: this.state.type,
+      topicId: this.props.topicId,
+      id: this.props.widgetId,
       size: 0,
-      ordered: 0,
       name: this.state.widgetName,
     });
   }

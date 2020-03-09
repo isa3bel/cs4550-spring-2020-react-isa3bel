@@ -21,8 +21,6 @@ class ImageWidget extends React.Component {
   };
 
   updateWidgetType = (e) => {
-    // service call to update widget
-    console.log("type updated")
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.headingText,
       type: e.target.value,

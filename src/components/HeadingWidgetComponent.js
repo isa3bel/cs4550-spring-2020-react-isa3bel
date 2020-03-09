@@ -35,14 +35,14 @@ class HeadingWidget extends React.Component {
       type: this.state.type,
       topicId: this.props.topicId,
       id: this.props.widgetId,
-      size: this.state.size,
+      size: 0,
       name: this.state.widgetName
     });
   }
 
   updateWidgetType = (e) => {
     // service call to update widget
-    console.log("type updated")
+    console.log("type updated heading")
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.headingText,
       type: e.target.value,

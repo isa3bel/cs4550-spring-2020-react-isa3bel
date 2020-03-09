@@ -71,7 +71,9 @@ class WidgetList extends React.Component {
                     updateWidget={this.props.updateWidget}
                   />
                 )) ||
-                (widget.type === "LIST" && (
+                (widget.type === "LIST" &&
+                 (
+                
                   <ListWidget
                     name={widget.name}
                     title={widget.title}

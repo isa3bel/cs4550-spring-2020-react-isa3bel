@@ -2,19 +2,7 @@ const initialState = {
   modules: []
 };
 
-const reorderWidgets = (widgets, from, to) => {
-  widgets = widgets.map((widget, index) => {
-    switch (index) {
-      case from:
-        return widgets[to];
-      case to:
-        return widgets[from];
-      default:
-        return widget;
-    }
-  });
-  return widgets;
-};
+
 
 const moduleReducer = (state = initialState, action) => {
   switch (action.type) {
