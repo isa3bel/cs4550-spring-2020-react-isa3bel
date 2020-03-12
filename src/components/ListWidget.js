@@ -104,6 +104,7 @@ class ListWidget extends React.Component {
           <div class="input-group mb-3 col-12">
             <textarea
               placeholder="Enter one list item per line"
+              defaultValue={this.props.title}
               type="text"
               class="form-control"
               onChange={e =>
@@ -137,7 +138,7 @@ class ListWidget extends React.Component {
             <input
               type="text"
               placeholder="Widget name"
-              defaultValue={this.props.title}
+              defaultValue={this.props.name}
               class="form-control"
               onChange={e =>
                 this.updateNameForm({

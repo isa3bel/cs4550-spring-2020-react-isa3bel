@@ -6,14 +6,12 @@
     return fetch(`${url}/api/topics/${tid}/widgets`, {
       method: "POST",
       body: JSON.stringify({
-        title: "New  Widget",
-        id: new Date().getTime() + ""
+        title: "New  Widget"
       }),
       headers: {
         "content-type": "application/json"
       }
-    })
-      .then(response => response.json())
+    });
   }
 
   export const findWidgetsForTopic = (tid) => {
@@ -29,6 +27,7 @@
   }
 
   export const updateWidget = (wid, widget) => {
+    console.log("widget " + JSON.stringify(widget));
     return fetch(
       `${url}/api/widgets/${wid}`,
       {
@@ -38,7 +37,7 @@
           "content-type": "application/json"
         }
       }
-    ).then(response => response.json());
+    );
   }
 
   export const deleteWidget = (wid) => {

@@ -1,15 +1,13 @@
 const widgets = [
-  { id: "123", title: "W1" },
-  { id: "456", title: "W2" },
-  { id: "789", title: "W3" }
+  // { id: "123", title: "W1" },
+  // { id: "456", title: "W2" },
+  // { id: "789", title: "W3" }
 ];
 
 const reorderWidgets = (widgets, from, to) => {
   widgets = widgets.map((widget, index) => {
-    console.log("ordering widget " + JSON.stringify(widget) + " " + index )
     switch (index) {
       case from:
-        console.log("widget from " + JSON.stringify(widgets[to]))
         return widgets[to];
       case to:
         return widgets[from];

@@ -16,17 +16,17 @@ class WidgetList extends React.Component {
   componentDidMount() {
     this.props.findWidgetsForTopic(this.props.topicId);
     //this.props.findAllWidgets();
+    console.log(this.props.widgets);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("Widget list updated", this.props.widgets);
     if (prevProps.topicId != this.props.topicId) {
       this.props.findWidgetsForTopic(this.props.topicId);
     }
   }
 
   addWidget() {
-    this.props.addWidget(this.props.topicId, { title: "test" });
+    this.props.addWidget(this.props.topicId);
   }
 
   render() {
@@ -149,7 +149,6 @@ const dispatcherToPropertyMapper = dispatch => {
     },
 
     moveUp: (wid, widget) => {
-      console.log("move up");
       return fetch(
         `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`
       )
@@ -157,7 +156,6 @@ const dispatcherToPropertyMapper = dispatch => {
         .then(status => dispatch({ type: "MOVE_UP", widget: widget }));
     },
     moveDown: (wid, widget) => {
-      console.log("move down");
       return fetch(
         `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com/widgets`
       )

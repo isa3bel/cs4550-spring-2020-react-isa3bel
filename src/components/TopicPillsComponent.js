@@ -9,6 +9,10 @@ class TopicPillsComponent extends React.Component {
     selected: false
   };
 
+  componentDidMount() {
+    console.log(this.props.topicId + " topic id")
+  }
+
   updateNameForm = newState => {
     this.setState(newState);
   };
@@ -33,7 +37,7 @@ class TopicPillsComponent extends React.Component {
             <Link
               to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topics/${this.props.topicId}`}
             >
-              test
+              {this.props.title}
             </Link>
           )}
           {this.state.editing && (
@@ -61,7 +65,7 @@ class TopicPillsComponent extends React.Component {
               onClick={() => {
                 this.props.updateTopic(this.props.topicId, {
                   title: this.state.topicName,
-                  _id: this.props.topicId
+                  id: this.props.topicId
                 });
                 this.clickedSave();
               }}

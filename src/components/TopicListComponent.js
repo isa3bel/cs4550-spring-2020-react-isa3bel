@@ -36,7 +36,7 @@ class TopicPills extends React.Component {
               <TopicPillsComponent
                 title={topic.title}
                 key={topic.title}
-                topicId={topic._id}
+                topicId={topic.id}
                 deleteTopic={this.props.deleteTopic}
                 updateTopic={this.props.updateTopic}
                 moduleId={this.props.moduleId}
@@ -85,6 +85,9 @@ const dispatchToPropertyMapper = dispatch => {
         .deleteTopic(topicId)
         .then(status => dispatch(deleteTopic(topicId)));
     },
+    // findTopic: topicId => {
+    //   return topicService.findTopic(topicId).then(staatus => dispatch())
+    // }
     updateTopic: (topicId, topic) => {
       return topicService
         .updateTopic(topicId, topic)

@@ -11,6 +11,9 @@ class ParagraphWidget extends React.Component {
   };
 
   
+  componentDidMount() {
+    console.log(this.props.title + " title");
+  }
 
   isEditing() {
     this.setState({ editing: !this.state.editing });
@@ -21,7 +24,6 @@ class ParagraphWidget extends React.Component {
   };
 
   updateWidgetType = (e) => {
-    console.log("type updated paragraph")
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.paragraphText,
       type: e.target.value,

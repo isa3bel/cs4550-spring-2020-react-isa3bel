@@ -8,7 +8,7 @@ class HeadingWidget extends React.Component {
     selected: false,
     headingText: this.props.title,
     widgetName: this.props.name,
-    size: 0,
+    size: this.props.size,
     preview: false,
     type: this.props.type
   };
@@ -26,7 +26,6 @@ class HeadingWidget extends React.Component {
   };
 
   clickedSave() {
-    console.log('changed type');
     this.setState({ editing: !this.state.editing });
     this.setState({ headingText: this.state.headingText });
 
@@ -35,14 +34,12 @@ class HeadingWidget extends React.Component {
       type: this.state.type,
       topicId: this.props.topicId,
       id: this.props.widgetId,
-      size: 0,
+      size: this.state.size,
       name: this.state.widgetName
     });
   }
 
   updateWidgetType = (e) => {
-    // service call to update widget
-    console.log("type updated heading")
     this.props.updateWidget(this.props.widgetId, {
       title: this.state.headingText,
       type: e.target.value,
