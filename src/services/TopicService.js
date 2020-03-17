@@ -1,5 +1,5 @@
-const url = `http://localhost:8080`;
-//const url = `https://wbdv-generic-server.herokuapp.com`;
+//const url = `http://localhost:8080`;
+const url = `https://cs4550-sp2020-isabel-bolger-1.herokuapp.com`;
 
 export const createTopic = (lessonId, topic) => 
 
