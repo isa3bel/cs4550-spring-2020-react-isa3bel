@@ -11,7 +11,7 @@
       headers: {
         "content-type": "application/json"
       }
-    });
+    }).then(response => response.json());
   }
 
   export const findWidgetsForTopic = (tid) => {
@@ -27,7 +27,6 @@
   }
 
   export const updateWidget = (wid, widget) => {
-    console.log("widget " + JSON.stringify(widget));
     return fetch(
       `${url}/api/widgets/${wid}`,
       {

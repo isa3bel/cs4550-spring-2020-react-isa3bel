@@ -12,7 +12,6 @@ class ParagraphWidget extends React.Component {
 
   
   componentDidMount() {
-    console.log(this.props.title + " title");
   }
 
   isEditing() {

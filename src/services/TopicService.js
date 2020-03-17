@@ -30,10 +30,12 @@ fetch(`${url}/api/topics/${topicId}`, { //api/isabelbolger/topics/${topicId}
 });
 
 
-export const deleteTopic = (topicId) =>
-     fetch(`${url}/api/topics/${topicId}`, { //api/isabelbolger/topics/topicId
+export const deleteTopic = (topicId) => {
+    
+     return fetch(`${url}/api/topics/${topicId}`, { //api/isabelbolger/topics/topicId
         method: 'DELETE',
     });
+}
 
 export default {
   deleteTopic,

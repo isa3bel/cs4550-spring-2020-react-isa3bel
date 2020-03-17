@@ -16,7 +16,6 @@ class WidgetList extends React.Component {
   componentDidMount() {
     this.props.findWidgetsForTopic(this.props.topicId);
     //this.props.findAllWidgets();
-    console.log(this.props.widgets);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -131,10 +130,11 @@ const dispatcherToPropertyMapper = dispatch => {
         .findWidgetsForTopic(tid)
         .then(actualWidgets => dispatch(findWidgetsForTopic(actualWidgets))),
 
-    addWidget: (topicId, widget) =>
-      widgetService
+    addWidget: (topicId) => {
+      return widgetService
         .createWidget(topicId)
-        .then(widget => dispatch(createWidget(widget))),
+        .then(widget => dispatch(createWidget(widget)))
+    },
 
     updateWidget: (wid, widget) => {
       widgetService
